@@ -4,6 +4,7 @@ Este registro distingue las comprobaciones de V5 de los resultados históricos d
 
 ## V5 — comprobaciones del 17 de septiembre de 2026
 
+- Publicación en GitHub Pages completada el 19 de septiembre de 2026: repositorio público `alexis01001415-oss/alexis01001415-oss.github.io`, HTTPS forzado y despliegue mediante GitHub Actions. Home, ruta de servicio, modelos GLB, imagen editorial, robots y sitemap respondieron HTTP 200. Smoke remoto a 1440, 768 y 390 px: canvas 3D, seis logos, header, cotizador y contacto presentes; sin overflow ni errores JavaScript.
 - Build final: 17 páginas; Astro/TypeScript revisa 51 archivos sin errores, warnings ni hints. Vite conserva el aviso de tamaño del módulo Three.js diferido.
 - QA estática del build final: 769 enlaces y 288 fragmentos internos, sin destinos ausentes; 17 títulos/descripciones/canonicals únicos y JSON-LD válido. `artifacts/qa-static-v5.json`. El sitio sigue en modo demo/noindex.
 - `scripts/qa-v5.mjs`: 56/56 controles en Edge. Viewports 1440×1000, 1920×1080, 1024×768, 768×1024, 390×844, 360×740 y 844×390. Sin desbordamiento horizontal ni colisiones entre CTA e indicador del hero. Header vuelve al subir desde secciones profundas. Las 17 páginas responden y las secundarias caben a 390 px. Cero errores JavaScript y cero hallazgos Axe en home a 1440 y 390 px. Capturas revisadas en escritorio y móvil.

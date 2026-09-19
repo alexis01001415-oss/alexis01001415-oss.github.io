@@ -57,7 +57,7 @@ El repositorio está preparado para publicarse como sitio de usuario en `alexis0
 
 La publicación usa modo demostración y no incorpora una clave de Web3Forms. El cotizador puede generar el PDF, pero los envíos permanecen deshabilitados hasta configurar la clave del cliente en otro entorno. `.gitignore` excluye `.env`, dependencias, compilaciones, artefactos de QA y paquetes; conserva las fuentes, créditos, modelos web y archivos Blender editables.
 
-Para un despliegue manual nuevo, crea o usa el repositorio público `alexis01001415-oss.github.io`, configura GitHub Pages con **GitHub Actions** como origen y sube `main`. La dirección resultante es `https://alexis01001415-oss.github.io/`.
+Repositorio público: [alexis01001415-oss/alexis01001415-oss.github.io](https://github.com/alexis01001415-oss/alexis01001415-oss.github.io). GitHub Pages usa **GitHub Actions** como origen y publica automáticamente cada push a `main` en [alexis01001415-oss.github.io](https://alexis01001415-oss.github.io/).
 
 ## Personalización
 
