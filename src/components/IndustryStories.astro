@@ -1,0 +1,194 @@
+---
+import Icon from './Icon.astro';
+import '../styles/editorial.css';
+
+interface Props {
+  id?: string;
+}
+
+const { id = 'industrias' } = Astro.props;
+---
+
+<section class="industry-stories" id={id} aria-labelledby={`${id}-title`}>
+  <div class="industry-marquee" aria-hidden="true">
+    <div class="industry-marquee-track" data-editorial-marquee>
+      {Array.from({ length: 3 }, () => (
+        <span>
+          EL MUNDO PRODUCE. <em>MÉXICO AVANZA.</em> <span class="industry-marquee-cross">↗</span>
+        </span>
+      ))}
+    </div>
+  </div>
+
+  <div class="industry-content">
+    <header class="industry-heading">
+      <div>
+        <p class="editorial-label">
+          <span class="editorial-cross" aria-hidden="true">
+            +
+          </span>{' '}
+          CADA INDUSTRIA TIENE SU PROPIA RUTA
+        </p>
+        <h2 id={`${id}-title`}>
+          ENTENDEMOS LO
+          <br />
+          QUE <span>MUEVE TU NEGOCIO.</span>
+        </h2>
+      </div>
+      <p>
+        Una pieza para producir.
+        <br /> Un componente para innovar.
+        <br /> Un producto para llegar más lejos.
+        <br />
+        <strong>La operación empieza por entenderlo.</strong>
+      </p>
+    </header>
+
+    <div class="industry-grid">
+      <article class="industry-manufacturing" aria-labelledby={`${id}-manufactura`}>
+        <figure class="industry-feature-photo">
+          <div class="editorial-image-wrap">
+            <img
+              src="/images/manufacturing.webp"
+              alt="Interior de una planta industrial con maquinaria y líneas de producción"
+              width="1600"
+              height="1100"
+              loading="lazy"
+              decoding="async"
+            />
+            <span class="industry-photo-label">DONDE LAS IDEAS TOMAN FORMA</span>
+          </div>
+          <figcaption class="editorial-label">ENTORNO INDUSTRIAL / VISUAL CONCEPTUAL</figcaption>
+        </figure>
+        <div class="industry-article-copy">
+          <span class="industry-number" aria-hidden="true">
+            01
+          </span>
+          <div>
+            <p class="editorial-label">MANUFACTURA & MAQUINARIA</p>
+            <h3 id={`${id}-manufactura`}>Cada pieza cuenta.</h3>
+            <p>
+              Refacciones, equipos e insumos tienen necesidades distintas. Empezamos por sus
+              características técnicas, dimensiones y uso en tu proceso para definir el alcance de
+              la operación.
+            </p>
+            <p class="industry-footnote">
+              EN FOCO <span>Ficha técnica · Embalaje · Dimensiones</span>
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <article class="industry-technology" aria-labelledby={`${id}-tecnologia`}>
+        <div class="industry-technology-top">
+          <span class="industry-number" aria-hidden="true">
+            02
+          </span>
+          <Icon name="diagonal" size={42} />
+        </div>
+        <p class="editorial-label">TECNOLOGÍA & COMPONENTES</p>
+        <h3 id={`${id}-tecnologia`}>
+          Pequeños detalles.
+          <br />
+          Grandes diferencias.
+        </h3>
+        <p>
+          La función, la composición y el modelo de un equipo ayudan a identificar lo que necesita
+          para ingresar a México. Una descripción precisa hace la diferencia desde el inicio.
+        </p>
+        <dl class="industry-tech-specs">
+          <div>
+            <dt>Qué es</dt>
+            <dd>Modelo y descripción</dd>
+          </div>
+          <div>
+            <dt>Cómo funciona</dt>
+            <dd>Uso y ficha técnica</dd>
+          </div>
+          <div>
+            <dt>Qué necesita</dt>
+            <dd>Requisitos por revisar</dd>
+          </div>
+        </dl>
+        <span class="industry-technology-note">LA PRECISIÓN TAMBIÉN ES PARTE DEL VIAJE.</span>
+      </article>
+
+      <article class="industry-retail" aria-labelledby={`${id}-retail`}>
+        <div class="industry-retail-copy">
+          <span class="industry-number" aria-hidden="true">
+            03
+          </span>
+          <p class="editorial-label">RETAIL & BIENES DE CONSUMO</p>
+          <h3 id={`${id}-retail`}>
+            Del origen
+            <br /> a lo cotidiano.
+          </h3>
+          <p>
+            Detrás de lo que llega a un anaquel hay una cadena de decisiones. Presentación
+            comercial, materiales, etiquetado y volumen nos permiten empezar a trazar esa cadena
+            contigo.
+          </p>
+          <p class="industry-footnote">
+            EN FOCO <span>Presentación · Etiquetado · Volumen</span>
+          </p>
+        </div>
+        <figure class="industry-retail-photo">
+          <div class="editorial-image-wrap">
+            <img
+              src="/images/port.webp"
+              alt="Buque portacontenedores y grúas en una terminal marítima"
+              width="1600"
+              height="1067"
+              loading="lazy"
+              decoding="async"
+            />
+            <span class="industry-photo-label">UN MUNDO DE POSIBILIDADES. UN SIGUIENTE PASO.</span>
+          </div>
+          <figcaption class="editorial-label">
+            CONEXIONES INTERNACIONALES / VISUAL CONCEPTUAL
+          </figcaption>
+        </figure>
+      </article>
+    </div>
+
+    <div class="industry-bottom">
+      <p>
+        Tu mercancía tiene su propia historia.
+        <br />
+        <strong>Empecemos por conocerla.</strong>
+      </p>
+      <a class="editorial-link" href="#cotizador">
+        Planea tu próxima operación <Icon name="diagonal" size={23} />
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const media = gsap.matchMedia();
+  media.add('(prefers-reduced-motion: no-preference)', () => {
+    document.querySelectorAll<HTMLElement>('[data-editorial-marquee]').forEach((track) => {
+      gsap.fromTo(
+        track,
+        { xPercent: -2 },
+        {
+          xPercent: -15,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: track.parentElement,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1,
+          },
+        },
+      );
+    });
+  });
+
+  document.addEventListener('astro:before-swap', () => media.revert(), { once: true });
+</script>

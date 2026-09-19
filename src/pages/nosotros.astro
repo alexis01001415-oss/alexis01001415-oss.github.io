@@ -1,0 +1,89 @@
+---
+import Layout from '../layouts/Layout.astro';
+import InnerHero from '../components/InnerHero.astro';
+import Icon from '../components/Icon.astro';
+---
+
+<Layout
+  title="Nuestra visión — criterio local, conexión global | DUANOR"
+  description="Conoce la visión de DUANOR: claridad, coordinación y acompañamiento para conectar las ideas de tu negocio con nuevas posibilidades."
+>
+  <InnerHero
+    title="EL MUNDO NO TERMINA EN UNA FRONTERA."
+    eyebrow="NUESTRA VISIÓN / DUANOR"
+    breadcrumb="Nosotros"
+    description="Creemos en las empresas que miran más lejos. Y en una forma de hacer logística que acompaña esa ambición."
+  />
+  <section class="section">
+    <div class="detail-grid">
+      <p class="manifesto">
+        Visión global.
+        <br />
+        <span class="accent-text">Criterio local.</span>
+        <br />
+        Personas al centro.
+      </p>
+      <div>
+        <p>
+          Una operación de comercio exterior conecta muchas decisiones: qué compras, cómo viaja, qué
+          documentos necesita y quién recibe la carga. Nuestra visión es hacer que todas esas piezas
+          conversen.
+        </p>
+        <p>
+          Desde Ciudad de México, planteamos un modelo de atención basado en claridad documental,
+          coordinación y comunicación durante cada etapa.
+        </p>
+        <p>
+          DUANOR es una marca ficticia creada para demostrar esta experiencia digital. Las imágenes,
+          rutas y tarifas son ilustrativas; no se atribuyen patentes, certificaciones, clientes ni
+          resultados a una empresa real.
+        </p>
+      </div>
+    </div>
+    <div class="values-grid">
+      {[
+        [
+          '01',
+          'Claridad desde el inicio',
+          'Un alcance comprensible, responsabilidades definidas y preguntas resueltas antes de avanzar.',
+        ],
+        [
+          '02',
+          'Cada detalle cuenta',
+          'Revisar la información a tiempo permite identificar lo que una operación necesita antes de mover la carga.',
+        ],
+        [
+          '03',
+          'Una sola conversación',
+          'Una visión coordinada de las etapas para entender dónde está tu operación y cuál es el siguiente paso.',
+        ],
+      ].map(([n, title, text]) => (
+        <div class="value">
+          <span>{n}</span>
+          <h3>{title}</h3>
+          <p>{text}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+  <img
+    class="inner-image"
+    src="/images/port.webp"
+    width="1920"
+    height="818"
+    alt="Imagen conceptual de un puerto y su buque portacontenedores al anochecer"
+    loading="lazy"
+  />
+  <section class="section">
+    <div class="section-heading">
+      <h2>
+        LA PRÓXIMA HISTORIA
+        <br />
+        <span class="muted-title">PUEDE SER LA TUYA.</span>
+      </h2>
+      <a class="button" href="/#cotizador">
+        Hablemos de tu carga <Icon name="diagonal" />
+      </a>
+    </div>
+  </section>
+</Layout>

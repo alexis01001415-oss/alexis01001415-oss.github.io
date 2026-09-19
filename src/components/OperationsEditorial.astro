@@ -1,0 +1,123 @@
+---
+import Icon from './Icon.astro';
+import '../styles/editorial.css';
+
+interface Props {
+  id?: string;
+}
+
+const { id = 'antes-de-cruzar' } = Astro.props;
+const steps = [
+  {
+    number: '01',
+    title: 'Preparar',
+    subtitle: 'Poner la información en orden.',
+    text: 'Qué vas a mover, de dónde viene y para qué se utilizará. La factura, la lista de empaque y la ficha técnica nos ayudan a entender tu operación antes de elegir una ruta.',
+    detail: 'Mercancía · Origen · Uso · Documentos',
+  },
+  {
+    number: '02',
+    title: 'Revisar',
+    subtitle: 'Hacer las preguntas a tiempo.',
+    text: 'El material, la composición y el uso de un producto importan. Revisamos la información disponible para identificar la clasificación y los requisitos que deberá validar el especialista responsable de tu despacho.',
+    detail: 'Clasificación · Requisitos · Información pendiente',
+  },
+  {
+    number: '03',
+    title: 'Coordinar',
+    subtitle: 'Conectar a quienes hacen que avance.',
+    text: 'Proveedor, transporte, aduana y destino comparten una misma operación. Alineamos los siguientes pasos y los puntos de contacto para que sepas qué está listo y qué falta por resolver.',
+    detail: 'Ruta · Responsables · Siguientes pasos',
+  },
+];
+---
+
+<section class="operations-editorial" id={id} aria-labelledby={`${id}-title`}>
+  <div class="operations-topline">
+    <p class="editorial-label">
+      <span class="editorial-cross" aria-hidden="true">
+        +
+      </span>{' '}
+      LA DIFERENCIA ESTÁ EN LOS DETALLES
+    </p>
+    <span class="editorial-label operations-edition">DUANOR / PERSPECTIVA 01</span>
+  </div>
+
+  <h2 class="operations-title" id={`${id}-title`}>
+    <span class="operations-title-dark">ANTES DE CRUZAR</span>
+    <span class="operations-title-light">CUALQUIER FRONTERA.</span>
+  </h2>
+
+  <div class="operations-content">
+    <figure class="operations-photo">
+      <div class="editorial-image-wrap">
+        <img
+          src="/images/inspection.webp"
+          alt="Detalle de la revisión de mercancía y documentación en una bodega logística"
+          width="1200"
+          height="1500"
+          loading="lazy"
+          decoding="async"
+        />
+        <span class="operations-photo-mark" aria-hidden="true">
+          <Icon name="plus" size={32} />
+        </span>
+        <div class="operations-image-caption">
+          <span>
+            LA CARGA ES SOLO
+            <br />
+            UNA PARTE DE LA HISTORIA.
+          </span>
+          <Icon name="diagonal" size={26} />
+        </div>
+      </div>
+      <figcaption>
+        <span>01 / UNA MIRADA MÁS CERCA</span>
+        <span>VISUAL CONCEPTUAL</span>
+      </figcaption>
+    </figure>
+
+    <div class="operations-copy">
+      <p class="editorial-label">CRITERIO ANTES QUE MOVIMIENTO</p>
+      <h3>
+        Un buen trayecto
+        <br /> empieza mucho antes
+        <br /> del embarque.
+      </h3>
+      <p class="operations-intro">
+        Detrás de cada caja hay decisiones. Conocerlas desde el principio permite construir una
+        operación mejor preparada.
+      </p>
+
+      <div class="operations-steps">
+        {steps.map((step, index) => (
+          <details class="operations-step" name={`${id}-steps`} open={index === 0}>
+            <summary>
+              <span class="operations-step-number">{step.number}</span>
+              <span class="operations-step-title">{step.title}</span>
+              <span class="operations-step-icon">
+                <Icon name="plus" size={20} />
+              </span>
+            </summary>
+            <div class="operations-step-body">
+              <h4>{step.subtitle}</h4>
+              <p>{step.text}</p>
+              <p class="operations-step-detail">{step.detail}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+
+      <a class="editorial-link editorial-link-dark" href="#cotizador">
+        Cuéntanos qué necesitas mover <Icon name="diagonal" size={21} />
+      </a>
+    </div>
+  </div>
+
+  <div class="operations-bottom">
+    <span class="editorial-label">EL SIGUIENTE PASO SE ENTIENDE MEJOR DESDE DENTRO.</span>
+    <span class="operations-bottom-arrow" aria-hidden="true">
+      ↓
+    </span>
+  </div>
+</section>

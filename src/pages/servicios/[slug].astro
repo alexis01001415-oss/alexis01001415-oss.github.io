@@ -1,0 +1,63 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import InnerHero from '../../components/InnerHero.astro';
+import Icon from '../../components/Icon.astro';
+import { services } from '../../data/site';
+export function getStaticPaths() {
+  return services.map((service) => ({ params: { slug: service.slug }, props: { service } }));
+}
+const { service } = Astro.props;
+---
+
+<Layout title={`${service.title} en México | DUANOR`} description={service.description}>
+  <InnerHero
+    title={service.title.toUpperCase()}
+    eyebrow={service.label}
+    description={service.description}
+    breadcrumb={service.title}
+  >
+    <a class="button" href="/#cotizador">
+      Cotizar esta solución <Icon name="diagonal" />
+    </a>
+  </InnerHero>
+  <section class="section">
+    <div class="detail-grid">
+      <div>
+        <p class="eyebrow">
+          <span class="section-no">{service.n} /</span> EL ALCANCE DE TU OPERACIÓN
+        </p>
+        <h2 style="margin-top:25px">
+          MOVERSE BIEN
+          <br />
+          <span class="muted-title">
+            EMPIEZA CON
+            <br />
+            UN BUEN PLAN.
+          </span>
+        </h2>
+        <p>{service.detail}</p>
+      </div>
+      <ul class="detail-list">
+        {service.items.map((item) => (
+          <li>
+            <Icon name="check" size={22} />
+            {item}
+          </li>
+        ))}
+        <li>
+          <Icon name="document" size={22} />
+          Alcance, disponibilidad y condiciones sujetos a revisión previa.
+        </li>
+      </ul>
+    </div>
+    <div class="inner-callout">
+      <div>
+        <h3>Hablemos de tu siguiente movimiento.</h3>
+        <p>Prepara una ficha con los datos de tu carga y tu ruta.</p>
+      </div>
+      <a class="button" href="/#cotizador">
+        Crear mi ficha <Icon name="diagonal" />
+      </a>
+    </div>
+  </section>
+</Layout>

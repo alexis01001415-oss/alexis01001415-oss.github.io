@@ -1,0 +1,32 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import InnerHero from '../../components/InnerHero.astro';
+import Icon from '../../components/Icon.astro';
+import { articles } from '../../data/articles';
+---
+
+<Layout
+  title="Guías para planear tu operación de comercio exterior | DUANOR"
+  description="Información introductoria para tu primera importación, documentos para cotizar y modalidades de transporte. Consulta fuentes oficiales."
+>
+  <InnerHero
+    title="EL CONOCIMIENTO TAMBIÉN ABRE CAMINOS."
+    eyebrow="GUÍAS / COMERCIO EXTERIOR"
+    breadcrumb="Guías y recursos"
+    description="Lo esencial para empezar una conversación mejor informada sobre tu próxima operación."
+  />
+  <section class="section">
+    <div class="resource-grid">
+      {articles.map((a) => (
+        <a class="resource-card" href={`/recursos/${a.slug}/`}>
+          <span class="eyebrow">{a.category}</span>
+          <h2>{a.title}</h2>
+          <p>{a.description}</p>
+          <span class="text-link">
+            Leer guía <Icon name="diagonal" size={18} />
+          </span>
+        </a>
+      ))}
+    </div>
+  </section>
+</Layout>

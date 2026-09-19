@@ -1,0 +1,44 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import InnerHero from '../../components/InnerHero.astro';
+import Icon from '../../components/Icon.astro';
+import { services } from '../../data/site';
+---
+
+<Layout
+  title="Soluciones aduanales y logísticas | DUANOR"
+  description="Explora despacho aduanal, logística internacional, consultoría y coordinación de carga para operaciones desde y hacia México."
+>
+  <InnerHero
+    title="CADA OPERACIÓN ES UN MUNDO."
+    eyebrow="SOLUCIONES / DUANOR"
+    breadcrumb="Soluciones"
+    description="Lo conectamos contigo. Un enfoque integral para que cada documento, cada tramo y cada decisión tengan un propósito."
+  />
+  <section class="section">
+    <div class="service-grid">
+      {services.map((s) => (
+        <a href={`/servicios/${s.slug}/`} class="service-card">
+          <div class="service-card-top">
+            <span>{s.n}</span>
+            <Icon name={s.icon} size={37} />
+          </div>
+          <h3>{s.title}</h3>
+          <p>{s.description}</p>
+          <span class="service-link">
+            Conocer más <Icon name="diagonal" />
+          </span>
+        </a>
+      ))}
+    </div>
+    <div class="inner-callout">
+      <div>
+        <h3>¿Aún no sabes por dónde empezar?</h3>
+        <p>Cuéntanos sobre tu mercancía. El primer paso es entender tu operación.</p>
+      </div>
+      <a href="/#cotizador" class="button">
+        Planea tu operación <Icon name="diagonal" />
+      </a>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+import InnerHero from '../components/InnerHero.astro';
+import ContactForm from '../components/ContactForm.astro';
+import CdmxMap from '../components/CdmxMap.astro';
+---
+
+<Layout
+  title="Cuéntanos sobre tu operación | DUANOR"
+  description="Cuéntanos qué mercancía quieres mover y qué necesitas resolver. Inicia una conversación sobre importación, exportación y logística desde Ciudad de México."
+>
+  <InnerHero
+    title="Tu próximo movimiento empieza con una conversación."
+    eyebrow="CONTACTO / CIUDAD DE MÉXICO"
+    breadcrumb="Contacto"
+    description="Comparte el origen, destino y características de tu carga. Con esa información podemos empezar a trazar una ruta."
+  />
+  <ContactForm id="contacto-principal" />
+  <CdmxMap id="contacto-cdmx" />
+</Layout>

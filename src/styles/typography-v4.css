@@ -1,0 +1,131 @@
+/* The V4 type contract: 1.5px tracking, 120% headings, 140% prose on desktop.
+   Explicit overrides keep earlier editorial styles from silently tightening it. */
+@media (min-width: 1101px) {
+  body :is(h1, h2, h3, h4) {
+    letter-spacing: 1.5px !important;
+    line-height: 1.2 !important;
+  }
+  body p {
+    letter-spacing: 1.5px;
+    line-height: 1.4 !important;
+  }
+  body .hero-copy h1,
+  body .hero-copy .hero-title,
+  body .inner-hero h1 {
+    font-size: 64px;
+  }
+  .hero-copy {
+    width: 55%;
+  }
+  body .hero-description {
+    font-size: 16px;
+    max-width: 435px;
+  }
+  .operations-title {
+    font-size: clamp(54px, 6.2vw, 100px);
+  }
+  .operations-copy > h3 {
+    font-size: clamp(32px, 2.7vw, 44px);
+  }
+  .industry-heading h2 {
+    font-size: clamp(37px, 3.8vw, 60px);
+  }
+  .decision-heading h2 {
+    font-size: clamp(38px, 4.4vw, 68px);
+  }
+  .document-route__intro h2 {
+    font-size: clamp(38px, 4.3vw, 68px);
+  }
+}
+body
+  :is(
+    .section-heading > p,
+    .coverage-copy > p:not(.eyebrow),
+    .operations-intro,
+    .operations-step-body > p,
+    .industry-heading > p,
+    .industry-article-copy p:not(.editorial-label, .industry-footnote),
+    .industry-technology > p:not(.editorial-label),
+    .industry-retail-copy > p:not(.editorial-label, .industry-footnote),
+    .route-mode__description,
+    .route-mode__idea,
+    .document-route__steps p,
+    .faq-list details > p,
+    .inner-content > p,
+    .connection-card p,
+    .resource-card p,
+    .value p
+  ) {
+  font-size: 16px;
+}
+body :is(.section-heading h2, .faq-section h2, .coverage h2) {
+  overflow-wrap: normal;
+}
+body .faq-list summary {
+  font-size: 17px;
+  line-height: 1.4;
+}
+body .faq-number {
+  font-size: 12px;
+}
+body .footer-grid p {
+  font-size: 14px;
+  line-height: 1.5;
+}
+@media (min-width: 768px) and (max-width: 1100px) {
+  body :is(h1, h2, h3, h4) {
+    letter-spacing: 0.6px !important;
+    line-height: 1.18 !important;
+  }
+  body p {
+    letter-spacing: 0.25px;
+    line-height: 1.45 !important;
+  }
+  body .hero-description {
+    font-size: 15px;
+  }
+  body .hero-copy h1,
+  body .hero-copy .hero-title {
+    font-size: clamp(40px, 5.4vw, 58px);
+  }
+}
+@media (max-width: 767px) {
+  body :is(h1, h2, h3, h4) {
+    letter-spacing: 0.1px !important;
+    line-height: 1.15 !important;
+  }
+  body p {
+    letter-spacing: 0.1px;
+  }
+  body
+    :is(
+      .section-heading > p,
+      .coverage-copy > p:not(.eyebrow),
+      .operations-intro,
+      .operations-step-body > p,
+      .industry-heading > p,
+      .industry-article-copy p:not(.editorial-label, .industry-footnote),
+      .industry-technology > p:not(.editorial-label),
+      .industry-retail-copy > p:not(.editorial-label, .industry-footnote),
+      .route-mode__description,
+      .document-route__steps p,
+      .faq-list details > p
+    ) {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  body .hero-description {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  body .hero-copy h1,
+  body .hero-copy .hero-title {
+    font-size: clamp(32px, 8.7vw, 53px);
+  }
+  body .faq-list summary {
+    font-size: 16px;
+  }
+  body .operations-title {
+    font-size: 6.9vw;
+  }
+}

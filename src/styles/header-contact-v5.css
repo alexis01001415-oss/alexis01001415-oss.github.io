@@ -1,0 +1,100 @@
+/* V5: one compact navigation breakpoint and matching quote/contact frames. */
+.site-header .mobile-toggle__close,
+.site-header .mobile-toggle[aria-expanded='true'] .mobile-toggle__open {
+  display: none;
+}
+.site-header .mobile-toggle[aria-expanded='true'] .mobile-toggle__close {
+  display: block;
+}
+.site-header .mobile-toggle:focus-visible {
+  outline: 2px solid #e0e1dd;
+  outline-offset: 4px;
+}
+.site-header .mobile-menu > .mobile-menu__quote {
+  min-height: 54px;
+  margin-bottom: 12px;
+  padding: 15px 18px;
+  border: 1px solid #e0e1dd;
+  background: #e0e1dd;
+  color: #0d1b2a;
+  font-size: 15px;
+  line-height: 1.4;
+  font-weight: 600;
+}
+.site-header .mobile-menu > .mobile-menu__quote:hover {
+  color: #e0e1dd;
+}
+.site-footer {
+  max-width: none;
+}
+.site-footer > :is(.footer-top, .footer-grid, .footer-bottom) {
+  max-width: 1500px;
+  margin-inline: auto;
+}
+.site-footer .footer-inquiry--panel {
+  margin-inline: calc(-1 * var(--gutter));
+  padding: 0;
+  border: 0;
+}
+.site-footer .footer-inquiry--panel > .contact-block {
+  padding: 95px var(--gutter) 100px;
+  border-top: 1px solid #415a77;
+  background: #1b263b;
+}
+@media (min-width: 1101px) {
+  .site-header .mobile-menu,
+  .site-header .mobile-toggle {
+    display: none;
+  }
+}
+@media (max-width: 1100px) {
+  .site-header {
+    --compact-header-top: 20px;
+    --compact-header-height: 81px;
+    --compact-menu-gap: 10px;
+    top: var(--compact-header-top);
+  }
+  .site-header .desktop-nav,
+  .site-header .nav-desktop-cta {
+    display: none;
+  }
+  .site-header .nav-shell {
+    min-height: var(--compact-header-height);
+    height: var(--compact-header-height);
+  }
+  .site-header .mobile-toggle {
+    display: inline-grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    flex: 0 0 44px;
+  }
+  .site-header .mobile-menu {
+    max-height: calc(
+      100dvh - var(--compact-header-top) - var(--compact-header-height) - var(--compact-menu-gap) -
+        16px - env(safe-area-inset-bottom, 0px)
+    );
+    margin-top: var(--compact-menu-gap);
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    scrollbar-gutter: stable;
+    scroll-padding-block: 12px;
+  }
+  .site-header .mobile-menu > a:not(.mobile-menu__quote) {
+    min-height: 52px;
+    padding: 15px 0;
+  }
+}
+@media (max-width: 700px) {
+  .site-header {
+    --compact-header-top: 14px;
+    --compact-header-height: 69px;
+  }
+  .site-header .mobile-menu {
+    padding: 18px;
+  }
+  .site-footer .footer-inquiry--panel > .contact-block {
+    padding-block: 70px;
+  }
+}

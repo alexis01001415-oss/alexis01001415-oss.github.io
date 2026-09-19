@@ -1,0 +1,99 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { brand } from '../data/site';
+import '@fontsource-variable/space-grotesk/wght.css';
+import '@fontsource-variable/dm-sans/index.css';
+import '../styles/global.css';
+import '../styles/brand-v3.css';
+import '../styles/interaction-v4.css';
+import '../styles/typography-v4.css';
+import '../styles/quote-ticket.css';
+import '../styles/header-contact-v5.css';
+import '../styles/reveal.css';
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+}
+const {
+  title = 'DUANOR — Aduanas y logística desde Ciudad de México',
+  description = 'Una nueva forma de conectar tu negocio con el mundo. Despacho aduanal, logística internacional y consultoría desde Ciudad de México. Cotiza tu operación.',
+  noindex = false,
+} = Astro.props;
+const canonical = new URL(
+  Astro.url.pathname === '/404/' ? '/404.html' : Astro.url.pathname,
+  Astro.site,
+);
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': new URL('/#organization', Astro.site).href,
+      name: brand.name,
+      description: brand.demo
+        ? 'Marca ficticia de un prototipo de servicios aduanales.'
+        : description,
+      url: Astro.site?.href,
+      areaServed: { '@type': 'Country', name: 'México' },
+    },
+    { '@type': 'WebSite', name: brand.name, url: Astro.site?.href, inLanguage: 'es-MX' },
+    { '@type': 'WebPage', name: title, description, url: canonical.href, inLanguage: 'es-MX' },
+  ],
+};
+---
+
+<!doctype html>
+<html lang="es-MX">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0d1b2a" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta
+      name="robots"
+      content={
+        brand.demo || noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'
+      }
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_MX" />
+    <meta property="og:site_name" content="DUANOR" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL('/images/port.webp', Astro.site)} />
+    <meta
+      property="og:image:alt"
+      content="DUANOR: visión conceptual de un puerto mexicano al anochecer"
+    />
+    <meta property="og:image:width" content="1920" />
+    <meta property="og:image:height" content="818" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={new URL('/images/port.webp', Astro.site)} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(schema).replace(/</g, '\\u003c')}
+    ></script>
+    <slot name="head" />
+  </head>
+  <body id="top">
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <script src="../scripts/site.ts"></script>
+    <script>
+      import { initReveal } from '../scripts/reveal';
+      initReveal();
+    </script>
+  </body>
+</html>

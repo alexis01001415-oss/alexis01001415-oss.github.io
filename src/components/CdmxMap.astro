@@ -1,0 +1,297 @@
+---
+import Icon from './Icon.astro';
+import '../styles/cdmx-map.css';
+interface Props {
+  id?: string;
+  compact?: boolean;
+}
+const { id = 'base-cdmx', compact = false } = Astro.props;
+const legalSource = 'https://sidof.segob.gob.mx/notas/docFuente/5757337';
+const catalogueSource =
+  'https://www.sat.gob.mx/minisitio/NormatividadRMFyRGCE/documentos2026/rgce/compiladas/CompiladoAnexo22_1raRMRGCE2026.pdf#page=37';
+const facilities = [
+  {
+    code: '20-0',
+    group: 'pantaco',
+    short: 'México · Pantaco',
+    name: 'Aduana de México',
+    type: 'Aduana interior',
+    address:
+      'Ferrocarril Central s/n, esquina Av. Cuitláhuac, colonia Cosmopolita, Azcapotzalco, C.P. 02670, Ciudad de México.',
+    note: 'Conocida como Pantaco. De ella depende la sección de importación y exportación de contenedores.',
+    source: 'https://www.anam.gob.mx/aduana-mexico/',
+    sourceLabel: 'Directorio ANAM',
+  },
+  {
+    code: '20-2',
+    group: 'pantaco',
+    short: 'Contenedores',
+    name: 'Sección de contenedores',
+    type: 'Sección aduanera · Aduana de México',
+    address:
+      'Rabaul s/n, esquina Nueces, colonia Jardín Azpeitia, Azcapotzalco, C.P. 02500, Ciudad de México.',
+    note: 'Sección de importación y exportación de contenedores. El inventario de inmuebles ANAM identifica este domicilio como Sección Aduanera Pantaco.',
+    source: 'https://www.anam.gob.mx/wp-content/uploads/CONV_SIIIDF-1_1.pdf#page=91',
+    sourceLabel: 'Domicilio ANAM · p. 91',
+  },
+  {
+    code: '47-0',
+    group: 'aicm',
+    short: 'AICM',
+    name: 'Aduana del AICM',
+    type: 'Aduana aeroportuaria',
+    address:
+      'Avenida 602 s/n, Zona Federal, colonia Peñón de los Baños, Venustiano Carranza, C.P. 15620, Ciudad de México.',
+    note: 'Aduana del Aeropuerto Internacional de la Ciudad de México. El punto representa su zona de carga.',
+    source: 'https://www.anam.gob.mx/aduana-aicm/',
+    sourceLabel: 'Directorio ANAM',
+  },
+  {
+    code: '47-1',
+    group: 'aicm',
+    short: 'Satélite',
+    name: 'Sección Satélite',
+    type: 'Sección aduanera · Aduana del AICM',
+    address:
+      'Interior del Aeropuerto Internacional de la Ciudad de México, alcaldía Venustiano Carranza, Ciudad de México.',
+    note: 'Sección para importación y exportación por vía aérea. La fuente oficial la sitúa dentro del AICM; no especifica en este acuerdo un acceso vial.',
+    source: legalSource,
+    sourceLabel: 'Ubicación oficial · DOF',
+  },
+  {
+    code: '47-2',
+    group: 'aicm',
+    short: 'Centro postal',
+    name: 'Centro Postal Mecanizado',
+    type: 'Sección aduanera · Aduana del AICM',
+    address:
+      'Interior del Aeropuerto Internacional de la Ciudad de México, alcaldía Venustiano Carranza, Ciudad de México.',
+    note: 'Sección para operaciones por vía postal y tráfico aéreo. El marcador agrupa el complejo AICM y no señala una puerta de acceso.',
+    source: legalSource,
+    sourceLabel: 'Ubicación oficial · DOF',
+  },
+];
+// References and boundaries use the same projection; see assets/map-source.md.
+const clusters = [
+  { id: 'pantaco', name: 'Pantaco', count: 2, x: 353.17560252577647, y: 239.22472080969612 },
+  { id: 'aicm', name: 'AICM', count: 3, x: 513.8672192229686, y: 295.0457363180872 },
+];
+---
+
+<section
+  class:list={['cdmx-section', { 'cdmx-section--compact': compact }]}
+  id={id}
+  data-cdmx-map
+  aria-labelledby={compact ? `${id}-map-title` : `${id}-title`}
+>
+  {!compact && (
+    <div class="cdmx-section__copy">
+      <p class="cdmx-section__eyebrow">
+        <span></span> GEOGRAFÍA ADUANAL · CDMX
+      </p>
+      <h2 id={`${id}-title`}>
+        La ciudad.
+        <br />
+        <span>
+          Sus puntos
+          <br />
+          de conexión.
+        </span>
+      </h2>
+      <p class="cdmx-section__intro">
+        Conoce las aduanas y secciones de Ciudad de México. Una referencia para entender dónde se
+        conecta tu operación.
+      </p>
+      <a class="cdmx-section__cta" href="/#contacto">
+        Hablemos de tu proyecto <Icon name="diagonal" size={20} />
+      </a>
+    </div>
+  )}
+  <div class="cdmx-section__visual">
+    <div class="cdmx-map__heading">
+      <span id={`${id}-map-title`}>ADUANAS EN CDMX</span>
+      <span>02 ADUANAS · 03 SECCIONES</span>
+    </div>
+    <div class="cdmx-map__frame">
+      <span class="cdmx-map__north" aria-hidden="true">
+        ↑<br />N
+      </span>
+      <span class="cdmx-map__territory" aria-hidden="true">
+        CIUDAD
+        <br />
+        DE MÉXICO
+      </span>
+      <div class="cdmx-map__geography">
+        <img
+          src="/maps/cdmx.svg"
+          alt="Mapa de las 16 alcaldías de Ciudad de México, con Pantaco al norte y el AICM al noreste"
+          width="760"
+          height="1024"
+          loading="lazy"
+          decoding="async"
+        />
+        {clusters.map((cluster, index) => (
+          <button
+            class:list={['cdmx-map__point', `cdmx-map__point--${cluster.id}`]}
+            type="button"
+            style={`--point-x: ${(cluster.x / 760) * 100}%; --point-y: ${(cluster.y / 1024) * 100}%`}
+            data-customs-cluster={cluster.id}
+            aria-pressed={index === 0 ? 'true' : 'false'}
+            aria-controls={`${id}-facilities ${id}-details`}
+            aria-label={`Explorar ${cluster.name}: ${cluster.count} instalaciones aduanales`}
+          >
+            <span class="cdmx-map__dot"></span>
+            <span class="cdmx-map__point-label">
+              {cluster.name}
+              <b>{cluster.count}</b>
+            </span>
+          </button>
+        ))}
+      </div>
+    </div>
+    <p class="cdmx-map__instruction" id={`${id}-instruction`}>
+      Selecciona una instalación. Los puntos agrupan Pantaco y AICM.
+    </p>
+    <div
+      class="cdmx-map__facilities"
+      id={`${id}-facilities`}
+      role="group"
+      aria-label="Aduanas y secciones de Ciudad de México"
+      aria-describedby={`${id}-instruction`}
+    >
+      {facilities.map((facility, index) => (
+        <button
+          type="button"
+          class="cdmx-map__facility"
+          data-customs-facility={index}
+          data-group={facility.group}
+          aria-pressed={index === 0 ? 'true' : 'false'}
+          aria-controls={`${id}-facility-${index}`}
+        >
+          <span class="cdmx-map__facility-code">{facility.code}</span>
+          <span>{facility.short}</span>
+          <span class="cdmx-map__facility-arrow" aria-hidden="true">
+            ↗
+          </span>
+        </button>
+      ))}
+    </div>
+    <div class="cdmx-map__details" id={`${id}-details`} aria-live="polite" aria-atomic="true">
+      {facilities.map((facility, index) => (
+        <article
+          class="cdmx-zone"
+          id={`${id}-facility-${index}`}
+          data-customs-panel={index}
+          hidden={index !== 0}
+          aria-labelledby={`${id}-facility-title-${index}`}
+        >
+          <div class="cdmx-zone__meta">
+            <span>{facility.type}</span>
+            <span>{String(index + 1).padStart(2, '0')} / 05</span>
+          </div>
+          <h3 id={`${id}-facility-title-${index}`}>{facility.name}</h3>
+          <p class="cdmx-zone__address">{facility.address}</p>
+          <p class="cdmx-zone__description">{facility.note}</p>
+          <div class="cdmx-zone__links">
+            <a href={facility.source} target="_blank" rel="noopener noreferrer">
+              {facility.sourceLabel}
+              <Icon name="diagonal" size={15} />
+            </a>
+            <a href={catalogueSource} target="_blank" rel="noopener noreferrer">
+              Clave {facility.code} · SAT
+              <Icon name="diagonal" size={15} />
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+    <p class="cdmx-map__scope">
+      Instalaciones públicas de referencia; no son oficinas de DUANOR. Este mapa incluye aduanas y
+      secciones, no recintos privados ni oficinas administrativas. AIFA se ubica en el Estado de
+      México.
+    </p>
+    <p class="cdmx-map__source">
+      Cartografía adaptada de INEGI, Marco Geoestadístico 2020 ·{' '}
+      <a
+        href="https://datos.cdmx.gob.mx/dataset/alcaldias"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Datos Abiertos CDMX
+      </a>{' '}
+      ·{' '}
+      <a
+        href="https://creativecommons.org/licenses/by/4.0/deed.es"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        CC BY 4.0
+      </a>
+      . Referencias de ubicación:{' '}
+      <a
+        href="https://dsiappsdev.semarnat.gob.mx/inai/XXVIII/2024/512/3T/169.CONTRATO-DGRMIS-DGIT-DAC-169-2024.pdf#page=101"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        SEMARNAT
+      </a>
+      . Fuentes consultadas: septiembre de 2026.
+    </p>
+  </div>
+</section>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-cdmx-map]').forEach((map) => {
+    const facilities = [...map.querySelectorAll<HTMLButtonElement>('[data-customs-facility]')];
+    const clusters = [...map.querySelectorAll<HTMLButtonElement>('[data-customs-cluster]')];
+    const panels = [...map.querySelectorAll<HTMLElement>('[data-customs-panel]')];
+    const selectFacility = (facility: HTMLButtonElement) => {
+      facilities.forEach((item) => item.setAttribute('aria-pressed', String(item === facility)));
+      clusters.forEach((item) =>
+        item.setAttribute(
+          'aria-pressed',
+          String(item.dataset.customsCluster === facility.dataset.group),
+        ),
+      );
+      panels.forEach((panel) => {
+        panel.hidden = panel.dataset.customsPanel !== facility.dataset.customsFacility;
+      });
+    };
+    const bindNavigation = (
+      items: HTMLButtonElement[],
+      select: (item: HTMLButtonElement) => void,
+    ) => {
+      items.forEach((item) => {
+        item.addEventListener('click', () => select(item));
+        item.addEventListener('focus', () => select(item));
+        item.addEventListener('pointerenter', (event) => {
+          if (event.pointerType === 'mouse') select(item);
+        });
+        item.addEventListener('keydown', (event) => {
+          if (
+            !['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)
+          )
+            return;
+          event.preventDefault();
+          const current = items.indexOf(item);
+          const next =
+            event.key === 'Home'
+              ? 0
+              : event.key === 'End'
+                ? items.length - 1
+                : (current +
+                    (['ArrowUp', 'ArrowLeft'].includes(event.key) ? -1 : 1) +
+                    items.length) %
+                  items.length;
+          items[next].focus();
+        });
+      });
+    };
+    bindNavigation(facilities, selectFacility);
+    bindNavigation(clusters, (cluster) => {
+      const facility = facilities.find(
+        (item) => item.dataset.group === cluster.dataset.customsCluster,
+      );
+      if (facility) selectFacility(facility);
+    });
+  });
+</script>

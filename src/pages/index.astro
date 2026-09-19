@@ -1,0 +1,284 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import OperationsEditorial from '../components/OperationsEditorial.astro';
+import IndustryStories from '../components/IndustryStories.astro';
+import WarehouseJourney from '../components/WarehouseJourney.astro';
+import CdmxMap from '../components/CdmxMap.astro';
+import DecisionSections from '../components/DecisionSections.astro';
+import SolutionsBento from '../components/SolutionsBento.astro';
+import ProcessTimeline from '../components/ProcessTimeline.astro';
+import CollaborationLogos from '../components/CollaborationLogos.astro';
+import '../styles/hero-v2.css';
+import '../styles/refinements-v5.css';
+import { faqs } from '../data/site';
+const phases = [
+  {
+    number: '01',
+    eyebrow: 'CONEXIÓN GLOBAL. CRITERIO LOCAL.',
+    title: ['MENOS FRONTERAS.', 'MÁS', 'POSIBILIDADES.'],
+    text: 'Tu negocio no tiene límites. Tu logística tampoco debería. Conectamos tu carga con el mundo, desde Ciudad de México.',
+    mode: 'TRAMO MARÍTIMO',
+    route: 'DEL MUNDO → MÉXICO',
+    metric: 'Origen',
+    place: 'Cualquier horizonte',
+  },
+  {
+    number: '02',
+    eyebrow: 'LA DIFERENCIA ESTÁ EN CÓMO LO HACEMOS.',
+    title: ['EL VALOR ESTÁ', 'EN CADA', 'DETALLE.'],
+    text: 'Mercancía, documentos y requisitos conectados. Una visión completa de tu carga para preparar cada paso con criterio.',
+    mode: 'TRAMO AÉREO',
+    route: 'CONEXIONES → AICM / AIFA',
+    metric: 'Conexión',
+    place: 'El centro de México',
+  },
+  {
+    number: '03',
+    eyebrow: 'EL ÚLTIMO TRAMO TAMBIÉN IMPORTA.',
+    title: ['DEL MUNDO', 'HASTA', 'TU PUERTA.'],
+    text: 'Del despacho a la entrega, cada paso tiene un propósito: que tu mercancía llegue a donde tu negocio la necesita.',
+    mode: 'TRAMO TERRESTRE',
+    route: 'ADUANA → CIUDAD DE MÉXICO',
+    metric: 'Destino',
+    place: 'Tu próximo movimiento',
+  },
+];
+---
+
+<Layout>
+  <section id="voyage" aria-label="El recorrido de tu mercancía">
+    <div class="voyage-sticky">
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="hero-orb" aria-hidden="true"></div>
+      <div
+        id="journey-scene"
+        role="img"
+        aria-label="Buque portacontenedores modelado en Blender: recorrido alrededor del casco, la carga y la cabina"
+      >
+        <div class="scene-fallback">
+          <img
+            src="/images/ship-fallback.webp"
+            width="1600"
+            height="1050"
+            alt="Buque portacontenedores de casco azul marino y contenedores claros"
+            fetchpriority="high"
+          />
+        </div>
+      </div>
+      {phases.map((p, i) => (
+        <div
+          class:list={['hero-copy', { 'is-active': i === 0 }]}
+          data-scene-copy={i}
+          aria-hidden={i !== 0}
+          inert={i !== 0}
+        >
+          <p class="eyebrow">
+            <span class="tiny-cross">+</span> {p.eyebrow}
+          </p>
+          {i === 0 ? (
+            <h1>
+              <span>{p.title[0]}</span>
+              <span>{p.title[1]}</span>
+              <span class="accent-text">{p.title[2]}</span>
+            </h1>
+          ) : (
+            <h2 class="hero-title">
+              <span>{p.title[0]}</span>
+              <span>{p.title[1]}</span>
+              <span class="accent-text">{p.title[2]}</span>
+            </h2>
+          )}
+          <p class="hero-description">{p.text}</p>
+          <div class="hero-actions">
+            <a class="button" href="#cotizador">
+              Planea tu operación <Icon name="diagonal" size={19} />
+            </a>
+            <a class="hero-secondary" href="#bodega">
+              Entra al recorrido <Icon name="arrow" size={17} />
+            </a>
+          </div>
+        </div>
+      ))}
+      <div class="hero-vessel-meta">
+        <div class="scene-caption">
+          <span id="scene-mode">VISIÓN DE ORIGEN</span>
+          <small id="scene-route">DEL MUNDO → MÉXICO</small>
+        </div>
+        <a class="scroll-prompt" href="#bodega">
+          <span class="scroll-indicator">
+            <span class="scroll-arrow-motion">
+              <Icon name="down" size={27} />
+            </span>
+          </span>
+          <span>
+            EL MUNDO SE MUEVE.
+            <br />
+            <strong>DESLIZA Y ACOMPÁÑALO.</strong>
+          </span>
+        </a>
+      </div>
+      <div class="hero-bottom">
+        <div class="journey-tabs" role="group" aria-label="Etapas del recorrido">
+          <button
+            data-journey-step="0"
+            class="active"
+            aria-label="Ver el buque desde el origen"
+            aria-pressed="true"
+          >
+            <span>01</span> Origen
+          </button>
+          <button data-journey-step="1" aria-label="Ver detalles de la carga" aria-pressed="false">
+            <span>02</span> Travesía
+          </button>
+          <button
+            data-journey-step="2"
+            aria-label="Ver el buque hacia destino"
+            aria-pressed="false"
+          >
+            <span>03</span> Destino
+          </button>
+        </div>
+        <button
+          id="motion-toggle"
+          class="motion-toggle"
+          aria-label="Pausar animación 3D"
+          aria-pressed="false"
+        >
+          <Icon name="pause" size={14} />
+          <span>PAUSAR 3D</span>
+        </button>
+      </div>
+      <div class="voyage-progress">
+        <span id="journey-bar"></span>
+      </div>
+    </div>
+  </section>
+  <CollaborationLogos />
+  <OperationsEditorial />
+  <WarehouseJourney />
+  <SolutionsBento />
+  <ProcessTimeline />
+  <section class="port-section">
+    <img
+      src="/images/port.webp"
+      width="1920"
+      height="818"
+      alt="Vista conceptual de un buque portacontenedores y grúas en un puerto al anochecer"
+      loading="lazy"
+      decoding="async"
+    />
+    <div class="port-shade"></div>
+    <div class="port-content">
+      <p class="eyebrow">NO SOLO MOVEMOS CARGA.</p>
+      <h2>
+        MOVEMOS LO QUE
+        <br />
+        TU NEGOCIO
+        <br />
+        <em>PUEDE SER.</em>
+      </h2>
+      <a href="/nosotros/" class="button button-light">
+        Conoce nuestra visión <Icon name="diagonal" size={20} />
+      </a>
+    </div>
+    <span class="port-caption">VISIÓN INTERNACIONAL / ESENCIA MEXICANA</span>
+    <span class="image-label">IMAGEN CONCEPTUAL</span>
+  </section>
+  <section class="section coverage">
+    <div class="coverage-copy">
+      <p class="eyebrow">
+        <span class="section-no">03 /</span> CERCA, DONDE IMPORTA
+      </p>
+      <h2>
+        EL MUNDO ES GRANDE.
+        <br />
+        <span class="muted-title">
+          MÉXICO ES
+          <br />
+          NUESTRO PUNTO
+          <br />
+          DE PARTIDA.
+        </span>
+      </h2>
+      <p>
+        Desde Ciudad de México, diseñamos conexiones con los principales puntos de entrada y salida
+        del país. La cobertura de cada ruta se confirma según tu operación.
+      </p>
+      <a href="/cobertura/" class="text-link">
+        Explora las conexiones <Icon name="diagonal" size={19} />
+      </a>
+      <div class="coverage-hub">
+        <span class="status-dot"></span>
+        <span>
+          HUB CENTRAL
+          <br />
+          <strong>Ciudad de México</strong>
+        </span>
+      </div>
+    </div>
+    <CdmxMap compact />
+  </section>
+  <section class="sectors">
+    <div class="section-heading">
+      <p class="eyebrow">DISTINTAS INDUSTRIAS. LA MISMA DEDICACIÓN.</p>
+      <a href="/servicios/" class="text-link">
+        Encuentra tu solución <Icon name="diagonal" size={18} />
+      </a>
+    </div>
+    <div class="sector-list">
+      <span>Manufactura</span>
+      <span>Retail & e-commerce</span>
+      <span>Tecnología</span>
+      <span>Bienes de consumo</span>
+      <span>Automotriz</span>
+    </div>
+  </section>
+  <IndustryStories />
+  <DecisionSections />
+  <QuoteForm />
+  <section class="section faq-section" id="preguntas">
+    <div>
+      <p class="eyebrow">
+        <span class="section-no">05 /</span> TODO MÁS CLARO
+      </p>
+      <h2>
+        BUENAS PREGUNTAS.
+        <br />
+        <span class="muted-title">MEJORES DECISIONES.</span>
+      </h2>
+      <p>
+        Tu siguiente movimiento empieza
+        <br />
+        con la información correcta.
+      </p>
+      <a href="/recursos/" class="text-link">
+        Visita nuestras guías <Icon name="diagonal" size={18} />
+      </a>
+    </div>
+    <div class="faq-list">
+      {faqs.map(([question, answer], i) => (
+        <details>
+          <summary>
+            <span class="faq-number">{String(i + 1).padStart(2, '0')}</span>
+            {question}
+            <Icon name="plus" size={21} />
+          </summary>
+          <p>{answer}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+  <section class="closing-banner">
+    <span class="eyebrow">TU PRÓXIMA GRAN IDEA NO TIENE POR QUÉ QUEDARSE AQUÍ.</span>
+    <h2>PIENSA SIN FRONTERAS.</h2>
+    <a href="#cotizador" class="button button-dark">
+      Nosotros trazamos la ruta <Icon name="diagonal" size={21} />
+    </a>
+  </section>
+  <script>
+    import { initJourney } from '../scripts/journey';
+    initJourney();
+  </script>
+</Layout>

@@ -1,0 +1,224 @@
+---
+import Icon from './Icon.astro';
+import '../styles/document-flow.css';
+interface Props {
+  id?: string;
+}
+const { id = 'document-flow' } = Astro.props;
+const titleId = `${id}-title`;
+const descriptionId = `${id}-description`;
+const clipId = `${id}-clip`;
+const scanId = `${id}-scan`;
+---
+
+<figure class="document-flow" id={id} data-document-flow>
+  <svg
+    class="document-flow__scene"
+    viewBox="0 0 560 450"
+    fill="none"
+    role="img"
+    aria-labelledby={`${titleId} ${descriptionId}`}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <title id={titleId}>Las piezas de un expediente de comercio exterior</title>
+    <desc id={descriptionId}>
+      Ilustración de una factura, una lista de empaque y un expediente con tablas de información.
+      Una lupa representa la revisión y las líneas conectan los documentos. Es un diagrama
+      conceptual.
+    </desc>
+    <defs>
+      <linearGradient id={scanId} x1="0" y1="0" x2="0" y2="1">
+        <stop stop-color="#778da9" stop-opacity="0" />
+        <stop offset="1" stop-color="#778da9" stop-opacity=".28" />
+      </linearGradient>
+      <clipPath id={clipId}>
+        <path d="M154 86H320L380 146V381H154V86Z" />
+      </clipPath>
+    </defs>
+
+    <g class="document-flow__technical" stroke="#415a77" stroke-width=".8" aria-hidden="true">
+      <path d="M30 55H90M30 55V112M470 55H530V112M30 340V406H90M470 406H530V340" />
+      <path stroke-dasharray="3 8" d="M280 25V425M12 223H546" />
+      <path d="M43 69H68M43 69V94M492 69H517V94M43 367V392H68M492 392H517V367" />
+      <path d="M92 36H117M104.5 23.5V48.5M453 421H478M465.5 408.5V433.5" />
+    </g>
+    <g class="document-flow__back" aria-hidden="true">
+      <g transform="rotate(-10 185 249)">
+        <rect x="75" y="118" width="206" height="269" rx="3" fill="#1b263b" stroke="#778da9" />
+        <text x="95" y="143" class="document-flow__svg-label" fill="#e0e1dd">
+          LISTA DE EMPAQUE
+        </text>
+        <path d="M95 155H259M95 168H171" stroke="#415a77" />
+        <path
+          d="M98 189L122 177L146 189L122 201L98 189ZM98 189V218L122 231L146 218V189M122 201V231M110 183L134 195"
+          stroke="#778da9"
+        />
+        <path
+          d="M161 185H258M161 198H239M161 213H219M96 250H259M96 273H259M96 296H259M96 319H259M96 342H221"
+          stroke="#415a77"
+        />
+        <path d="M96 250V319M178 250V319M231 250V319M259 250V319" stroke="#415a77" />
+        <text x="96" y="365" class="document-flow__svg-micro" fill="#778da9">
+          BULTOS / PESO / CONTENIDO
+        </text>
+      </g>
+    </g>
+    <g class="document-flow__middle" aria-hidden="true">
+      <g transform="rotate(7 292 226)">
+        <rect x="186" y="63" width="224" height="284" rx="3" fill="#1b263b" stroke="#778da9" />
+        <path d="M207 84H305M207 96H266M207 109H385" stroke="#778da9" />
+        <text x="335" y="88" class="document-flow__svg-micro" fill="#e0e1dd">
+          FACTURA
+        </text>
+        <path
+          d="M207 127H388M207 153H388M207 179H388M207 205H388M207 231H388M207 257H388M207 283H388M207 309H306"
+          stroke="#415a77"
+        />
+      </g>
+    </g>
+    <g class="document-flow__front" aria-hidden="true">
+      <path
+        d="M154 86H320L380 146V381H154V86Z"
+        fill="#e0e1dd"
+        stroke="#778da9"
+        stroke-width="1.2"
+      />
+      <path d="M320 86V146H380" fill="#778da9" fill-opacity=".22" stroke="#778da9" />
+      <rect x="176" y="108" width="20" height="20" fill="#0d1b2a" />
+      <path d="M180 113H191M180 117H187M180 121H190" stroke="#e0e1dd" stroke-width="1.3" />
+      <text x="206" y="116" class="document-flow__svg-label document-flow__svg-label--dark">
+        EXPEDIENTE
+      </text>
+      <text x="206" y="130" class="document-flow__svg-micro document-flow__svg-label--dark">
+        DE OPERACIÓN
+      </text>
+      <path d="M176 153H293" stroke="#0d1b2a" stroke-width="2.5" />
+      <path d="M176 166H255M176 177H326" stroke="#778da9" stroke-width="1.5" />
+      <rect x="176" y="194" width="180" height="92" stroke="#778da9" />
+      <rect x="176" y="194" width="180" height="20" fill="#1b263b" />
+      <path d="M176 214H356M176 238H356M176 262H356M253 194V286M306 194V286" stroke="#778da9" />
+      <text x="183" y="207" class="document-flow__svg-micro" fill="#e0e1dd">
+        DOCUMENTO
+      </text>
+      <text x="261" y="207" class="document-flow__svg-micro" fill="#e0e1dd">
+        DATOS
+      </text>
+      <text x="314" y="207" class="document-flow__svg-micro" fill="#e0e1dd">
+        REVISIÓN
+      </text>
+      <path
+        d="M185 225H238M262 225H293M185 249H225M262 249H289M185 273H235M262 273H296"
+        stroke="#415a77"
+        stroke-width="1.5"
+      />
+      <g stroke="#415a77" stroke-width="1.2">
+        <circle cx="330" cy="226" r="4" />
+        <circle cx="330" cy="250" r="4" />
+        <circle cx="330" cy="274" r="4" />
+      </g>
+      <path d="M176 306H284M176 318H259" stroke="#778da9" stroke-width="1.5" />
+      <path d="M177 346H230M177 355H212" stroke="#415a77" />
+      <rect x="282" y="332" width="74" height="25" rx="2" stroke="#415a77" />
+      <text x="289" y="348" class="document-flow__svg-micro document-flow__svg-label--dark">
+        EN REVISIÓN
+      </text>
+      <g clip-path={`url(#${clipId})`}>
+        <g class="document-flow__scan">
+          <rect x="156" y="160" width="222" height="40" fill={`url(#${scanId})`} />
+          <path d="M156 200H378" stroke="#415a77" stroke-width="1.8" />
+          <circle cx="163" cy="200" r="2.5" fill="#415a77" />
+          <circle cx="371" cy="200" r="2.5" fill="#415a77" />
+        </g>
+      </g>
+    </g>
+    <g class="document-flow__connections" aria-hidden="true">
+      <path
+        class="document-flow__trace"
+        d="M79 283H49V325H104M382 322H463V278M398 108H457V144"
+        stroke="#778da9"
+        stroke-width="1.2"
+        stroke-dasharray="4 6"
+      />
+      <circle cx="49" cy="283" r="4" fill="#e0e1dd" />
+      <circle cx="463" cy="278" r="4" fill="#e0e1dd" />
+      <rect x="425" y="332" width="72" height="40" rx="3" fill="#1b263b" stroke="#778da9" />
+      <path d="M435 343H454M435 350H482M435 357H475" stroke="#778da9" />
+    </g>
+    <g class="document-flow__lens" aria-hidden="true">
+      <path d="M441 215L475 249" stroke="#0d1b2a" stroke-width="14" stroke-linecap="round" />
+      <path d="M441 215L475 249" stroke="#778da9" stroke-width="7" stroke-linecap="round" />
+      <circle cx="410" cy="184" r="48" fill="#0d1b2a" stroke="#778da9" stroke-width="2" />
+      <circle cx="410" cy="184" r="39" stroke="#415a77" />
+      <path
+        d="M385 169H436M385 180H420M385 191H427M385 203H409"
+        stroke="#778da9"
+        stroke-width="2"
+      />
+      <rect x="404" y="176" width="19" height="9" fill="#e0e1dd" fill-opacity=".23" />
+      <path
+        d="M386 155A34 34 0 0 1 421 151"
+        stroke="#e0e1dd"
+        stroke-width="1.5"
+        stroke-linecap="round"
+      />
+    </g>
+  </svg>
+  <figcaption class="document-flow__caption">
+    <span>
+      Una misma historia.
+      <br />
+      <strong>En cada documento.</strong>
+    </span>
+    <button class="document-flow__toggle" type="button" aria-pressed="false" hidden>
+      <Icon name="pause" size={16} class="document-flow__pause" />
+      <Icon name="play" size={16} class="document-flow__play" />
+      <span>Pausar animación</span>
+    </button>
+  </figcaption>
+</figure>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-document-flow]').forEach((figure) => {
+    if (figure.dataset.initialized) return;
+    figure.dataset.initialized = 'true';
+    const button = figure.querySelector<HTMLButtonElement>('.document-flow__toggle')!;
+    const label = button.querySelector('span')!;
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    let visible = false,
+      paused = false;
+    const update = () => {
+      figure.classList.toggle(
+        'is-running',
+        visible && !paused && !reduced.matches && !document.hidden,
+      );
+      button.hidden = reduced.matches;
+      button.setAttribute('aria-pressed', String(paused));
+      label.textContent = paused ? 'Activar animación' : 'Pausar animación';
+    };
+    const toggle = () => {
+      paused = !paused;
+      update();
+    };
+    button.addEventListener('click', toggle);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        visible = entry?.isIntersecting ?? false;
+        update();
+      },
+      { threshold: 0.15 },
+    );
+    observer.observe(figure);
+    reduced.addEventListener('change', update);
+    document.addEventListener('visibilitychange', update);
+    window.addEventListener('pageshow', update);
+    window.addEventListener('pagehide', (event) => {
+      if (event.persisted) return;
+      observer.disconnect();
+      button.removeEventListener('click', toggle);
+      reduced.removeEventListener('change', update);
+      document.removeEventListener('visibilitychange', update);
+      window.removeEventListener('pageshow', update);
+    });
+    update();
+  });
+</script>

@@ -1,0 +1,66 @@
+---
+import Layout from '../layouts/Layout.astro';
+import InnerHero from '../components/InnerHero.astro';
+import Icon from '../components/Icon.astro';
+---
+
+<Layout
+  title="Conexiones logísticas desde Ciudad de México | DUANOR"
+  description="Explora rutas conceptuales marítimas, aéreas y terrestres hacia Ciudad de México. Planeación por Manzanillo, Veracruz, AICM, AIFA y frontera norte."
+>
+  <InnerHero
+    title="UN PUNTO DE PARTIDA. MUCHAS CONEXIONES."
+    eyebrow="COBERTURA / MÉXICO"
+    breadcrumb="Cobertura"
+    description="Ciudad de México al centro de una red de posibilidades. Cada ruta se planea según la carga, los tiempos y el alcance de tu operación."
+  />
+  <section class="section">
+    <div class="connection-grid">
+      {[
+        [
+          'ship',
+          'Conexión marítima',
+          'Manzanillo, Veracruz y Lázaro Cárdenas como puntos de referencia para evaluar operaciones por puerto.',
+          'PUERTOS → CENTRO DE MÉXICO',
+        ],
+        [
+          'plane',
+          'Conexión aérea',
+          'AICM y AIFA como referencias para revisar rutas aéreas, características de carga y alternativas de manejo.',
+          'CONEXIONES INTERNACIONALES → CDMX',
+        ],
+        [
+          'truck',
+          'Conexión terrestre',
+          'Nuevo Laredo y otros cruces a evaluar según el origen, el tipo de carga y el destino final de la mercancía.',
+          'FRONTERA NORTE → DESTINO NACIONAL',
+        ],
+        [
+          'pin',
+          'Coordinación en CDMX',
+          'Un punto de contacto para articular la operación y planear la entrega hacia tu almacén o centro de distribución.',
+          'CIUDAD DE MÉXICO → TU NEGOCIO',
+        ],
+      ].map(([icon, title, text, route]) => (
+        <article class="connection-card">
+          <Icon name={icon} size={38} />
+          <h2>{title}</h2>
+          <p>{text}</p>
+          <span class="eyebrow">{route}</span>
+        </article>
+      ))}
+    </div>
+    <div class="inner-callout">
+      <div>
+        <h3>Tu mercancía define la ruta.</h3>
+        <p>
+          Red conceptual del prototipo. No representa oficinas, autorizaciones ni acuerdos
+          operativos reales.
+        </p>
+      </div>
+      <a href="/#cotizador" class="button">
+        Consultar mi ruta <Icon name="diagonal" />
+      </a>
+    </div>
+  </section>
+</Layout>

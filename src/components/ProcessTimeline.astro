@@ -1,0 +1,214 @@
+---
+import '../styles/process-timeline.css';
+const stages = [
+  {
+    number: '01',
+    title: 'Escuchamos',
+    label: 'EL PUNTO DE PARTIDA',
+    description:
+      'Entendemos tu mercancía, tus tiempos y a dónde quieres llegar. Hacemos las preguntas que dan contexto a tu operación.',
+    inputs: 'Producto, origen, destino y fecha objetivo.',
+    outcome: 'Una ficha con lo que necesitas mover.',
+    code: 'CONTEXTO',
+  },
+  {
+    number: '02',
+    title: 'Trazamos',
+    label: 'EL CRITERIO',
+    description:
+      'Revisamos los requisitos y definimos el alcance. Ponemos en orden lo que sabemos y señalamos lo que hace falta confirmar.',
+    inputs: 'Documentación, características y condiciones.',
+    outcome: 'Una ruta de trabajo con alcance claro.',
+    code: 'PLANEACIÓN',
+  },
+  {
+    number: '03',
+    title: 'Coordinamos',
+    label: 'LAS PIEZAS EN MOVIMIENTO',
+    description:
+      'Conectamos documentos, transporte y despacho en una misma conversación. Cada participante conoce el siguiente paso.',
+    inputs: 'Responsables, documentos y puntos de conexión.',
+    outcome: 'Una operación coordinada por etapas.',
+    code: 'EJECUCIÓN',
+  },
+  {
+    number: '04',
+    title: 'Acompañamos',
+    label: 'LA CONTINUIDAD',
+    description:
+      'Damos seguimiento hasta la entrega y el cierre documental. Mantenemos visibles los pendientes y la información que necesitas conservar.',
+    inputs: 'Seguimiento, incidencias y evidencias.',
+    outcome: 'Información para cerrar y volver a empezar.',
+    code: 'SEGUIMIENTO',
+  },
+];
+---
+
+<section
+  class="process-timeline"
+  id="recorrido"
+  aria-labelledby="process-timeline-title"
+  data-process-timeline
+>
+  <header class="process-timeline__heading">
+    <p class="process-timeline__eyebrow">EL MÉTODO DETRÁS DEL MOVIMIENTO</p>
+    <h2 id="process-timeline-title">
+      La ruta empieza
+      <br />
+      <span>por entenderte.</span>
+    </h2>
+    <p>Cuatro momentos conectados. La misma atención a lo largo de tu operación.</p>
+  </header>
+  <div class="process-timeline__layout">
+    <nav class="process-timeline__navigation" aria-label="Etapas de nuestra forma de trabajo">
+      <div class="process-timeline__meter" aria-hidden="true">
+        <span></span>
+      </div>
+      <ol>
+        {stages.map((stage, index) => (
+          <li>
+            <a
+              href={`#proceso-${stage.number}`}
+              data-process-link={index}
+              aria-current={index === 0 ? 'step' : undefined}
+            >
+              <span class="process-timeline__nav-number">{stage.number}</span>
+              <span>{stage.title}</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+      <p class="process-timeline__navigation-note">
+        Cada etapa prepara
+        <br />
+        la siguiente.
+      </p>
+    </nav>
+    <ol class="process-timeline__stages">
+      {stages.map((stage, index) => (
+        <li
+          class={`process-timeline__stage${index === 0 ? ' is-current' : ''}`}
+          id={`proceso-${stage.number}`}
+          data-process-stage={index}
+        >
+          <div class="process-timeline__stage-top">
+            <span>
+              {stage.number} / {stage.label}
+            </span>
+            <span class="process-timeline__stage-code">DNR-{stage.code}</span>
+          </div>
+          <h3 tabindex="-1">
+            {stage.title}
+            <span class="process-timeline__stage-dot" aria-hidden="true"></span>
+          </h3>
+          <p class="process-timeline__description">{stage.description}</p>
+          <dl>
+            <div>
+              <dt>Ponemos sobre la mesa</dt>
+              <dd>{stage.inputs}</dd>
+            </div>
+            <div>
+              <dt>Para avanzar con</dt>
+              <dd>{stage.outcome}</dd>
+            </div>
+          </dl>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-process-timeline]').forEach((root) => {
+    if (root.dataset.initialized) return;
+    root.dataset.initialized = 'true';
+    const stages = [...root.querySelectorAll<HTMLElement>('[data-process-stage]')];
+    const links = [...root.querySelectorAll<HTMLAnchorElement>('[data-process-link]')];
+    const list = root.querySelector<HTMLOListElement>('.process-timeline__stages')!;
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    let frame = 0,
+      visible = false;
+    const select = (index: number) => {
+      stages.forEach((stage, i) => stage.classList.toggle('is-current', i === index));
+      links.forEach((link, i) =>
+        i === index
+          ? link.setAttribute('aria-current', 'step')
+          : link.removeAttribute('aria-current'),
+      );
+    };
+    const update = () => {
+      frame = 0;
+      const trigger = Math.min(innerHeight * 0.4, 340);
+      let active = 0;
+      stages.forEach((stage, index) => {
+        if (stage.getBoundingClientRect().top <= trigger) active = index;
+      });
+      select(active);
+      const first = stages[0]!.getBoundingClientRect().top;
+      const last = stages[stages.length - 1]!.getBoundingClientRect().top;
+      const progress = Math.max(0, Math.min(1, (trigger - first) / Math.max(1, last - first)));
+      root.style.setProperty('--process-progress', String(progress));
+    };
+    const schedule = () => {
+      if (visible && !frame) frame = requestAnimationFrame(update);
+    };
+    const go = (index: number, focusHeading = false) => {
+      const stage = stages[index]!;
+      select(index);
+      const offset = Number.parseFloat(getComputedStyle(stage).scrollMarginTop) || 140;
+      window.scrollTo({
+        top: window.scrollY + stage.getBoundingClientRect().top - offset,
+        behavior: reduced.matches ? 'instant' : 'smooth',
+      });
+      if (focusHeading)
+        stage.querySelector<HTMLHeadingElement>('h3')?.focus({ preventScroll: true });
+    };
+    const handlers = links.map((link, index) => {
+      const click = (event: MouseEvent) => {
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        event.preventDefault();
+        go(index, event.detail === 0);
+      };
+      const keydown = (event: KeyboardEvent) => {
+        let next = index;
+        if (event.key === 'ArrowDown' || event.key === 'ArrowRight')
+          next = Math.min(links.length - 1, index + 1);
+        else if (event.key === 'ArrowUp' || event.key === 'ArrowLeft')
+          next = Math.max(0, index - 1);
+        else if (event.key === 'Home') next = 0;
+        else if (event.key === 'End') next = links.length - 1;
+        else return;
+        event.preventDefault();
+        links[next]!.focus({ preventScroll: true });
+        go(next);
+      };
+      link.addEventListener('click', click);
+      link.addEventListener('keydown', keydown);
+      return { link, click, keydown };
+    });
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        visible = entry?.isIntersecting ?? false;
+        if (visible) schedule();
+      },
+      { rootMargin: '160px' },
+    );
+    observer.observe(list);
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule, { passive: true });
+    const restore = () => schedule();
+    window.addEventListener('pageshow', restore);
+    window.addEventListener('pagehide', (event) => {
+      if (event.persisted) return;
+      observer.disconnect();
+      cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+      window.removeEventListener('pageshow', restore);
+      handlers.forEach(({ link, click, keydown }) => {
+        link.removeEventListener('click', click);
+        link.removeEventListener('keydown', keydown);
+      });
+    });
+  });
+</script>

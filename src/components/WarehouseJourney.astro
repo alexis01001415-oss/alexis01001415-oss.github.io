@@ -1,0 +1,201 @@
+---
+import Icon from './Icon.astro';
+import '../styles/warehouse.css';
+const chapters = [
+  {
+    n: '01',
+    tag: 'UNA VISIÓN COMPLETA',
+    title: ['Todo empieza', 'antes de llegar.'],
+    text: 'Detrás de cada movimiento hay una operación que necesita orden. Entra a una bodega conceptual y sigue el camino de una mercancía.',
+    detail: 'DESLIZA PARA ENTRAR',
+    label: 'Panorama',
+    alt: 'Vista general de una bodega industrial con estanterías, pasillos y andenes',
+  },
+  {
+    n: '02',
+    tag: 'RECEPCIÓN · PUNTO DE PARTIDA',
+    title: ['Cada caja tiene', 'una historia.'],
+    text: 'Cantidad, peso, origen y condición del embalaje. Reunimos los datos que permiten describir lo que realmente estás moviendo.',
+    detail: 'PACKING LIST / FACTURA / ORIGEN',
+    label: 'Recepción',
+    alt: 'Acercamiento a las cajas de cartón y pallets de la zona de recepción',
+  },
+  {
+    n: '03',
+    tag: 'REVISIÓN · CRITERIO TÉCNICO',
+    title: ['El detalle cambia', 'la operación.'],
+    text: 'Materiales, uso y especificaciones ayudan a determinar la clasificación y los requisitos aplicables. Una descripción precisa abre el camino.',
+    detail: 'DESCRIPCIÓN / FRACCIÓN / REQUISITOS',
+    label: 'Revisión',
+    alt: 'Mesa de revisión de mercancía con caja, báscula, documentos y pantalla',
+  },
+  {
+    n: '04',
+    tag: 'PREPARACIÓN · TODO EN SU LUGAR',
+    title: ['Una carga lista.', 'Una ruta clara.'],
+    text: 'Conectamos expediente, condiciones de manejo y necesidades de transporte. Cada pieza de información debe coincidir antes de avanzar.',
+    detail: 'EXPEDIENTE / EMBALAJE / COORDINACIÓN',
+    label: 'Preparación',
+    alt: 'Vista desde el pasillo hacia estanterías industriales con mercancía preparada',
+  },
+  {
+    n: '05',
+    tag: 'SALIDA · EL SIGUIENTE MOVIMIENTO',
+    title: ['Listos para', 'cruzar.'],
+    text: 'La salida se coordina conforme al despacho, las autorizaciones y la disponibilidad del transporte. El seguimiento continúa hasta destino.',
+    detail: 'DESPACHO / SALIDA / SEGUIMIENTO',
+    label: 'Salida',
+    alt: 'Zona de salida con transportador de rodillos, pallets y puertas de carga',
+  },
+  {
+    n: '06',
+    tag: 'DESTINO · UNA NUEVA POSIBILIDAD',
+    title: ['La ruta sigue.', 'Hasta tu puerta.'],
+    text: 'Fuera de la bodega comienza el último tramo. Coordinamos transporte y entrega para conectar la operación con tu negocio. Ahora tracemos el recorrido de tu mercancía.',
+    detail: 'EL SIGUIENTE PASO LO ELIGES TÚ',
+    label: 'Destino',
+    alt: 'Tractocamión azul con semirremolque en el patio exterior de la bodega, listo para el tramo a destino',
+  },
+];
+---
+
+<section class="warehouse-section" id="bodega" aria-labelledby="warehouse-title">
+  <header class="warehouse-intro">
+    <p class="eyebrow">
+      <span>02 /</span> POR DENTRO, TODO ESTÁ CONECTADO.
+    </p>
+    <div>
+      <h2 id="warehouse-title">
+        NO ES SOLO UNA CAJA.
+        <br />
+        <span>ES TODO UN RECORRIDO.</span>
+      </h2>
+      <p>
+        Una mirada al proceso.
+        <br />
+        Seis momentos. Una misma operación.
+        <a href="#warehouse-tour">
+          Entra a la experiencia <Icon name="arrow" size={18} />
+        </a>
+      </p>
+    </div>
+    <div class="warehouse-intro-bottom">
+      <span>DUANOR — INSIDE THE JOURNEY</span>
+      <span>RECORRIDO INTERACTIVO / 01—06</span>
+    </div>
+  </header>
+  <div class="warehouse-experience-notice" id="warehouse-experience-notice" hidden>
+    <p id="warehouse-experience-message" role="status"></p>
+    <button
+      class="button button-dark"
+      id="warehouse-enable"
+      type="button"
+      aria-controls="warehouse-tour"
+      hidden
+    >
+      Activar recorrido 3D <Icon name="arrow" size={18} />
+    </button>
+  </div>
+  <noscript>
+    <p class="warehouse-experience-notice">
+      Explora los seis momentos en imágenes. Activa JavaScript en tu navegador para recorrer la
+      bodega en 3D.
+    </p>
+  </noscript>
+  <div class="warehouse-tour" id="warehouse-tour">
+    <div class="warehouse-stage" aria-hidden="true">
+      <div class="warehouse-canvas" id="warehouse-canvas"></div>
+      <img
+        class="warehouse-fallback"
+        src="/images/warehouse-0.webp"
+        width="1440"
+        height="1000"
+        alt=""
+        loading="lazy"
+      />
+      <div class="warehouse-grid"></div>
+      <span class="warehouse-watermark">DNR / INSIDE</span>
+    </div>
+    <div class="warehouse-chrome">
+      <div class="warehouse-status">
+        <span class="status-dot"></span>
+        <span id="warehouse-status">EXPLORA LA OPERACIÓN</span>
+      </div>
+      <div class="warehouse-tools">
+        <button id="warehouse-motion" aria-pressed="false">
+          Pausar cámara
+        </button>
+        <a href="#despues-del-recorrido">
+          Saltar recorrido <Icon name="diagonal" size={14} />
+        </a>
+      </div>
+      <nav class="warehouse-navigation" aria-label="Capítulos de la bodega">
+        {chapters.map((c, i) => (
+          <button
+            data-tour-jump={i}
+            aria-label={`Capítulo ${c.n}: ${c.label}`}
+            aria-pressed={i === 0}
+          >
+            <span>{c.n}</span>
+            <small>{c.label}</small>
+          </button>
+        ))}
+      </nav>
+      <div class="warehouse-progress">
+        <span></span>
+      </div>
+    </div>
+    <div class="warehouse-chapters">
+      {chapters.map((c, i) => (
+        <article
+          class="warehouse-chapter"
+          data-tour-chapter={i}
+          id={`bodega-${c.n}`}
+          aria-labelledby={`bodega-title-${i}`}
+        >
+          <img
+            class="warehouse-poster"
+            src={`/images/warehouse-${i}.webp`}
+            width="1440"
+            height="1000"
+            alt={c.alt}
+            loading="lazy"
+            decoding="async"
+          />
+          <div class="warehouse-card">
+            <span class="warehouse-chapter-number" aria-hidden="true">
+              {c.n}
+              <small>/06</small>
+            </span>
+            <p class="eyebrow">{c.tag}</p>
+            <h3 id={`bodega-title-${i}`}>
+              {c.title[0]}
+              <br />
+              {c.title[1]}
+            </h3>
+            <p class="warehouse-description">{c.text}</p>
+            <div class="warehouse-detail">
+              <span>+</span>
+              {c.detail}
+            </div>
+            {i === 5 && (
+              <a class="button button-dark" href="#cotizador">
+                Cotiza tu operación <Icon name="diagonal" size={18} />
+              </a>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+  <div class="warehouse-note" id="despues-del-recorrido">
+    <span>ESPACIO CONCEPTUAL · NO REPRESENTA INSTALACIONES REALES.</span>
+    <a href="/creditos/">
+      Modelos y créditos <Icon name="diagonal" size={14} />
+    </a>
+  </div>
+</section>
+<script>
+  import { initWarehouseTour } from '../scripts/warehouse-tour';
+  initWarehouseTour();
+</script>

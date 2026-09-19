@@ -1,0 +1,113 @@
+---
+import Icon from './Icon.astro';
+import { services } from '../data/site';
+import '../styles/solutions-bento.css';
+const labels = ['EL DESPACHO', 'LA CONEXIÓN', 'EL CRITERIO', 'LA CONTINUIDAD'];
+---
+
+<section class="solutions-bento" id="soluciones" aria-labelledby="solutions-bento-title">
+  <header class="solutions-bento__heading">
+    <div>
+      <p class="solutions-bento__eyebrow">SOLUCIONES QUE SE CONECTAN</p>
+      <h2 id="solutions-bento-title">
+        Una operación.
+        <br />
+        <span>Todas sus piezas.</span>
+      </h2>
+    </div>
+    <p>
+      La carga es solo una parte. Conectamos el criterio, los documentos y la coordinación que
+      necesita para seguir avanzando.
+    </p>
+  </header>
+  <div class="solutions-bento__grid">
+    {services.map((service, index) => (
+      <a
+        class={`solutions-tile solutions-tile--${index + 1}`}
+        href={`/servicios/${service.slug}/`}
+        aria-labelledby={`solution-name-${service.n}`}
+      >
+        <div class="solutions-tile__meta">
+          <span>
+            {service.n} / {labels[index]}
+          </span>
+          <Icon name={service.icon} size={25} />
+        </div>
+        {index === 0 && (
+          <div class="solutions-tile__drawing solutions-tile__drawing--customs" aria-hidden="true">
+            <svg viewBox="0 0 560 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                class="solutions-drawing__grid"
+                d="M20 155H540M40 125H520M70 95H490M105 65H455M155 35H405M280 15V188M212 20L165 188M348 20L395 188M147 35L54 188M413 35L506 188"
+              />
+              <path d="M156 164V40L280 11L405 40V164M156 40L280 72L405 40M280 72V185M156 164L280 195L405 164" />
+              <path d="M173 51V150L264 173V79M296 80V173L388 150V51M186 58V153M200 62V156M214 65V160M228 68V163M242 72V167M310 77V169M324 73V165M338 69V161M352 65V157M366 62V153" />
+              <path
+                class="solutions-drawing__bright"
+                d="M263 92L279 96L295 92V120L279 125L263 120V92ZM279 96V125"
+              />
+              <path d="M51 105V70H86M51 135V170H86M510 105V70H475M510 135V170H475" />
+              <circle class="solutions-drawing__point" cx="51" cy="120" r="4" />
+              <circle class="solutions-drawing__point" cx="510" cy="120" r="4" />
+              <path stroke-dasharray="3 6" d="M61 120H126M434 120H500" />
+              <path
+                class="solutions-drawing__bright"
+                d="M122 31h18M131 22v18M420 171h18M429 162v18"
+              />
+            </svg>
+            <span>DOCUMENTOS · CRITERIO · LIBERACIÓN</span>
+          </div>
+        )}
+        {index === 1 && (
+          <div class="solutions-tile__route" aria-hidden="true">
+            <div>
+              <Icon name="ship" size={31} />
+              <span>MAR</span>
+            </div>
+            <span class="solutions-tile__route-line"></span>
+            <div>
+              <Icon name="plane" size={31} />
+              <span>AIRE</span>
+            </div>
+            <span class="solutions-tile__route-line"></span>
+            <div>
+              <Icon name="truck" size={31} />
+              <span>TIERRA</span>
+            </div>
+          </div>
+        )}
+        <div class="solutions-tile__copy">
+          {index === 2 && <span class="solutions-tile__thought">ANTES DE MOVER, ENTENDER.</span>}
+          <h3 id={`solution-name-${service.n}`}>{service.title}</h3>
+          <p>{service.description}</p>
+        </div>
+        {index === 3 && (
+          <div class="solutions-tile__drawing solutions-tile__drawing--cargo" aria-hidden="true">
+            <svg viewBox="0 0 280 245" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                class="solutions-drawing__grid"
+                d="M13 174L137 235L267 174M13 155L137 216L267 155M13 136L137 197L267 136M44 119L167 181M75 102L198 164M107 86L231 147"
+              />
+              <path d="M33 132L105 97L176 132L104 170L33 132ZM33 132V183L104 220L176 183V132M104 170V220M56 143V194M80 156V207M127 158V208M151 145V195" />
+              <path
+                class="solutions-drawing__bright"
+                d="M98 70L171 34L241 70L170 107L98 70ZM98 70V128L170 165L241 128V70M170 107V165M133 52L205 89V111L192 118V95L120 59"
+              />
+              <path d="M191 123L222 107V126L191 142V123M197 125L218 114M197 131L211 124" />
+              <circle class="solutions-drawing__point" cx="56" cy="64" r="5" />
+              <path stroke-dasharray="3 5" d="M56 70V111M63 64H90" />
+              <path d="M218 185V203H250M24 32H48M36 20V44" />
+            </svg>
+          </div>
+        )}
+        <span class="solutions-tile__link">
+          <span>Explorar solución</span>
+          <Icon name="diagonal" size={24} class="icon-arrow-diagonal" />
+        </span>
+      </a>
+    ))}
+  </div>
+  <p class="solutions-bento__closing">
+    Un punto de contacto. Un alcance definido para tu operación.
+  </p>
+</section>

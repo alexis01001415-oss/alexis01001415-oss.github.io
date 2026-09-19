@@ -1,0 +1,72 @@
+---
+import Brand from './Brand.astro';
+import Icon from './Icon.astro';
+import ContactForm from './ContactForm.astro';
+import { brand } from '../data/site';
+---
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <span class="eyebrow">EL SIGUIENTE DESTINO LO ELIGES TÚ.</span>
+      <a class="footer-cta" href="/#cotizador">
+        Hagamos que suceda.
+        <Icon name="diagonal" size={58} />
+      </a>
+    </div>
+    <a class="circle-link" href="/#cotizador" aria-label="Cotizar mi operación">
+      <Icon name="diagonal" size={30} />
+    </a>
+  </div>
+  {Astro.url.pathname !== '/contacto/' && (
+    <div class="footer-inquiry footer-inquiry--panel">
+      <ContactForm id="contacto" compact title="Tu próximo movimiento empieza aquí." />
+    </div>
+  )}
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <Brand />
+      <p>
+        Visión global.
+        <br />
+        Criterio local.
+        <br />
+        Desde Ciudad de México.
+      </p>
+    </div>
+    <div>
+      <h3>Explora</h3>
+      <a href="/servicios/">Soluciones</a>
+      <a href="/nosotros/">Nosotros</a>
+      <a href="/cobertura/">Cobertura</a>
+    </div>
+    <div>
+      <h3>Planea tu operación</h3>
+      <a href="/#cotizador">Cotizador</a>
+      <a href="/recursos/">Guías y recursos</a>
+      <a href="/#preguntas">Preguntas frecuentes</a>
+    </div>
+    <div>
+      <h3>Tu próximo movimiento</h3>
+      <p>
+        Cuéntanos qué quieres traer
+        <br />o llevar al mundo.
+      </p>
+      <a class="text-link" href="/contacto/">
+        Iniciar una conversación <Icon size={17} />
+      </a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>
+      © {new Date().getFullYear()} DUANOR.{' '}
+      {brand.demo ? 'Marca ficticia · Prototipo demostrativo.' : 'Todos los derechos reservados.'}
+    </span>
+    <a href="/privacidad/">Aviso de privacidad</a>
+    <a href="/terminos/">Términos de uso</a>
+    <a href="/creditos/">Créditos</a>
+    <a href="#top" class="back-top">
+      Volver arriba ↑
+    </a>
+  </div>
+</footer>

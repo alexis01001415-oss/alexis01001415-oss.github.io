@@ -1,0 +1,414 @@
+---
+import Icon from './Icon.astro';
+---
+
+<section class="section quote-section" id="cotizador">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">
+        <span class="section-no">04 /</span> DE LA IDEA A LA OPERACIÓN
+      </p>
+      <h2>
+        TU SIGUIENTE MOVIMIENTO
+        <br />
+        <span class="muted-title">EMPIEZA AQUÍ.</span>
+      </h2>
+    </div>
+    <p>
+      Cuéntanos qué tienes en mente.
+      <br />
+      Obtén una estimación de servicios
+      <br />y descarga tu ficha en PDF.
+    </p>
+  </div>
+  <div class="quote-layout">
+    <div class="quote-main">
+      <div class="quote-steps" role="group" aria-label="Progreso del cotizador">
+        <span class="active" data-step-indicator="0">
+          <b>01</b> Tu operación
+        </span>
+        <span data-step-indicator="1">
+          <b>02</b> Tu mercancía
+        </span>
+        <span data-step-indicator="2">
+          <b>03</b> Conectemos
+        </span>
+      </div>
+      <form
+        id="quote-form"
+        novalidate
+        data-web3-key={import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY || ''}
+      >
+        <input
+          type="checkbox"
+          name="botcheck"
+          class="honeypot"
+          tabindex="-1"
+          aria-hidden="true"
+          autocomplete="off"
+        />
+        <fieldset data-form-step="0">
+          <legend>¿Qué quieres hacer?</legend>
+          <p class="field-intro">Empecemos por el destino de tu próxima oportunidad.</p>
+          <div class="operation-options">
+            <label>
+              <input type="radio" name="operation" value="Importación" checked />
+              <span>
+                <Icon name="download" />
+                Importar a México<small>Traer posibilidades</small>
+              </span>
+            </label>
+            <label>
+              <input type="radio" name="operation" value="Exportación" />
+              <span>
+                <Icon name="diagonal" />
+                Exportar al mundo<small>Llegar más lejos</small>
+              </span>
+            </label>
+          </div>
+          <div class="field-grid">
+            <label>
+              Modalidad de transporte{' '}
+              <select name="transport" required>
+                <option value="Marítimo">Marítimo</option>
+                <option value="Aéreo">Aéreo</option>
+                <option value="Terrestre">Terrestre</option>
+                <option value="Por definir">Necesito orientación</option>
+              </select>
+            </label>
+            <label>
+              Aduana de entrada o salida{' '}
+              <select name="customsOffice" required>
+                <option value="Por definir">Ayúdenme a definirla</option>
+                <option>Manzanillo</option>
+                <option>Veracruz</option>
+                <option>Lázaro Cárdenas</option>
+                <option>AICM</option>
+                <option>AIFA</option>
+                <option>Nuevo Laredo</option>
+                <option value="Otra">Otra aduana</option>
+              </select>
+            </label>
+            <label>
+              <span id="origin-label">País de origen de la mercancía</span>
+              <input
+                name="origin"
+                required
+                maxlength="80"
+                placeholder="Ej. China"
+                autocomplete="off"
+              />
+            </label>
+            <label>
+              <span id="destination-label">Ciudad de destino en México</span>
+              <input
+                name="destination"
+                required
+                maxlength="120"
+                placeholder="Ej. Ciudad de México"
+                autocomplete="off"
+              />
+            </label>
+          </div>
+          <label class="checkbox-label">
+            <input type="checkbox" name="firstOperation" />
+            Es mi primera operación de comercio exterior
+          </label>
+        </fieldset>
+        <fieldset data-form-step="1" hidden disabled>
+          <legend>Hablemos de tu carga.</legend>
+          <p class="field-intro">Cuanto más sepamos, mejor podremos orientar tu operación.</p>
+          <label>
+            ¿Qué mercancía vas a mover?{' '}
+            <textarea
+              name="description"
+              required
+              minlength="10"
+              maxlength="900"
+              rows="3"
+              placeholder="Producto, material y uso. Ej. 100 sillas de acero para oficina."
+            ></textarea>
+          </label>
+          <div class="field-grid">
+            <label>
+              Valor comercial{' '}
+              <input
+                name="declaredValue"
+                type="number"
+                min="1"
+                max="1000000000"
+                step="0.01"
+                required
+                placeholder="25000"
+                inputmode="decimal"
+              />
+            </label>
+            <label>
+              Moneda{' '}
+              <select name="currency">
+                <option>USD</option>
+                <option>MXN</option>
+                <option>EUR</option>
+              </select>
+            </label>
+            <label>
+              Peso bruto (kg){' '}
+              <input
+                name="weight"
+                type="number"
+                required
+                min="0.01"
+                max="10000000"
+                step="0.01"
+                placeholder="500"
+                inputmode="decimal"
+              />
+            </label>
+            <label>
+              Número de bultos{' '}
+              <input
+                name="packages"
+                type="number"
+                required
+                min="1"
+                max="1000000"
+                step="1"
+                placeholder="10"
+                inputmode="numeric"
+              />
+            </label>
+            <label>
+              Volumen (m³) <span class="optional">Opcional</span>
+              <input
+                name="volume"
+                type="number"
+                min="0.001"
+                max="1000000"
+                step="0.001"
+                placeholder="2.5"
+                inputmode="decimal"
+              />
+            </label>
+            <label>
+              Fecha estimada <span class="optional">Opcional</span>
+              <input name="dateNeeded" type="date" />
+            </label>
+          </div>
+          <details class="advanced-fields">
+            <summary>
+              Añadir detalles de mi operación <Icon name="plus" size={17} />
+            </summary>
+            <div class="field-grid">
+              <label>
+                Incoterm{' '}
+                <select name="incoterm">
+                  <option value="Por definir">No lo conozco aún</option>
+                  <option>EXW</option>
+                  <option>FCA</option>
+                  <option>FAS</option>
+                  <option>FOB</option>
+                  <option>CFR</option>
+                  <option>CIF</option>
+                  <option>CPT</option>
+                  <option>CIP</option>
+                  <option>DAP</option>
+                  <option>DPU</option>
+                  <option>DDP</option>
+                </select>
+              </label>
+              <label>
+                Régimen previsto{' '}
+                <select name="regime">
+                  <option value="Definitivo">Definitivo</option>
+                  <option>Temporal</option>
+                  <option value="Por definir">Necesito asesoría</option>
+                </select>
+              </label>
+              <label>
+                Fracción arancelaria <span class="optional">Si la conoces</span>
+                <input
+                  name="tariffCode"
+                  pattern="[0-9]{8}"
+                  maxlength="8"
+                  placeholder="8 dígitos"
+                  inputmode="numeric"
+                  title="Ingresa exactamente 8 dígitos o deja el campo vacío"
+                />
+              </label>
+              <label>
+                NICO <span class="optional">Opcional</span>
+                <input
+                  name="nico"
+                  pattern="[0-9]{2}"
+                  maxlength="2"
+                  placeholder="2 dígitos"
+                  inputmode="numeric"
+                  title="Ingresa exactamente 2 dígitos o deja el campo vacío"
+                />
+              </label>
+            </div>
+          </details>
+          <label class="checkbox-label">
+            <input type="checkbox" name="specialCargo" />
+            Carga peligrosa, perecedera o que requiere refrigeración
+          </label>
+          <div class="extra-services">
+            <span>¿Necesitas algo más?</span>
+            <label class="checkbox-label">
+              <input type="checkbox" name="documentReview" />
+              Revisión documental adicional
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="classification" />
+              Análisis preliminar de clasificación
+            </label>
+          </div>
+        </fieldset>
+        <fieldset data-form-step="2" hidden disabled>
+          <legend>El comienzo de algo grande.</legend>
+          <p class="field-intro">
+            Prepara tu ficha y, si lo deseas, envía tu solicitud para revisión.
+          </p>
+          <div class="field-grid">
+            <label>
+              Nombre completo{' '}
+              <input
+                name="name"
+                required
+                minlength="2"
+                maxlength="100"
+                autocomplete="name"
+                placeholder="Tu nombre"
+              />
+            </label>
+            <label>
+              Empresa{' '}
+              <input
+                name="company"
+                required
+                maxlength="140"
+                autocomplete="organization"
+                placeholder="Nombre de tu empresa"
+              />
+            </label>
+            <label>
+              Correo electrónico{' '}
+              <input
+                name="email"
+                type="email"
+                required
+                maxlength="180"
+                autocomplete="email"
+                placeholder="nombre@empresa.com"
+              />
+            </label>
+            <label>
+              Teléfono <span class="optional">Opcional</span>
+              <input name="phone" type="tel" maxlength="30" autocomplete="tel" placeholder="+52" />
+            </label>
+          </div>
+          <label>
+            Algo más que debamos saber <span class="optional">Opcional</span>
+            <textarea
+              name="notes"
+              maxlength="1200"
+              rows="3"
+              placeholder="Tiempos, condiciones o dudas sobre tu operación."
+            ></textarea>
+          </label>
+          <label class="checkbox-label consent">
+            <input type="checkbox" name="consent" required />
+            <span>
+              He leído el{' '}
+              <a href="/privacidad/" target="_blank" rel="noopener">
+                aviso de privacidad
+              </a>{' '}
+              y acepto el tratamiento de mis datos para atender esta solicitud.
+            </span>
+          </label>
+          <p class="demo-note">
+            Prototipo demostrativo. Los importes son ilustrativos y no constituyen una cotización
+            vinculante.
+          </p>
+        </fieldset>
+        <div class="form-navigation">
+          <button type="button" class="back-button" id="quote-back" hidden>
+            <Icon name="back" size={16} /> Anterior
+          </button>
+          <span class="step-caption" id="step-caption">
+            PASO 01 DE 03
+          </span>
+          <button type="button" class="button" id="quote-next">
+            Continuar <Icon name="arrow" size={18} />
+          </button>
+          <button type="submit" class="button" id="quote-submit" hidden>
+            Crear mi ficha <Icon name="diagonal" size={18} />
+          </button>
+        </div>
+        <p class="form-status" id="quote-status" role="status" aria-live="polite"></p>
+      </form>
+      <div id="quote-result" hidden tabindex="-1">
+        <div class="result-icon">
+          <Icon name="check" size={28} />
+        </div>
+        <span class="eyebrow">EL PRIMER PASO ESTÁ DADO</span>
+        <h3>Tu operación, en una ficha.</h3>
+        <p>Guarda el resumen en PDF o envía los datos para una revisión comercial.</p>
+        <div id="result-reference" class="reference"></div>
+        <div class="result-actions">
+          <button id="download-pdf" class="button">
+            Descargar PDF <Icon name="download" size={19} />
+          </button>
+          <button id="send-quote" class="button button-outline">
+            Enviar solicitud <Icon name="diagonal" size={19} />
+          </button>
+        </div>
+        <p id="send-status" role="status" aria-live="polite"></p>
+        <button id="edit-quote" class="text-link" type="button">
+          <Icon name="back" size={16} /> Editar mi operación
+        </button>
+      </div>
+    </div>
+    <aside class="quote-summary quote-ticket" aria-label="Resumen de tu estimación de servicios">
+      <div class="summary-top">
+        <span class="eyebrow">TU PUNTO DE PARTIDA</span>
+        <Icon name="receipt" size={25} />
+      </div>
+      <div class="summary-route">
+        <span id="summary-operation">Importación</span>
+        <span class="summary-transport" id="summary-transport">
+          Vía marítima
+        </span>
+      </div>
+      <div class="ticket-tear" aria-hidden="true">
+        <span>DNR / ESTIMACIÓN</span>
+        <span>MXN</span>
+      </div>
+      <div class="estimate-block">
+        <span>Estimación de servicios</span>
+        <strong id="quote-low">$5,400</strong>
+        <span id="quote-high">a $6,800 MXN</span>
+      </div>
+      <div id="quote-lines" class="quote-lines"></div>
+      <p class="summary-note">
+        Tarifas de demostración. Estimación de honorarios y coordinación, sujeta a revisión de tu
+        operación.
+      </p>
+      <div class="summary-exclusions">
+        <Icon name="document" size={21} />
+        <p>
+          No incluye impuestos, contribuciones, fletes, seguros, almacenajes, maniobras ni permisos.
+        </p>
+      </div>
+      <div class="ticket-stub">
+        <span class="ticket-barcode" aria-hidden="true"></span>
+        <span class="summary-foot">TU CARGA. TU SIGUIENTE PASO.</span>
+        <span class="ticket-demo">REFERENCIA DEMOSTRATIVA</span>
+      </div>
+    </aside>
+  </div>
+  <noscript>
+    <p>Activa JavaScript para utilizar el cotizador interactivo y generar tu PDF.</p>
+  </noscript>
+</section>
+<script src="../scripts/quote.ts"></script>

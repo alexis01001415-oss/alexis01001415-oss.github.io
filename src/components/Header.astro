@@ -1,0 +1,92 @@
+---
+import Brand from './Brand.astro';
+import Icon from './Icon.astro';
+import { services } from '../data/site';
+---
+
+<a class="skip-link" href="#main">
+  Saltar al contenido
+</a>
+<header class="site-header">
+  <div class="nav-shell">
+    <Brand />
+    <nav class="desktop-nav" aria-label="Navegación principal">
+      <details class="nav-dropdown">
+        <summary>
+          Soluciones <Icon name="chevron" size={14} />
+        </summary>
+        <div class="mega-menu">
+          <span class="eyebrow">TU OPERACIÓN, BIEN CONECTADA</span>
+          {services.map((s) => (
+            <a href={`/servicios/${s.slug}/`}>
+              <span class="nav-service-icon">
+                <Icon name={s.icon} size={23} />
+              </span>
+              <span class="nav-service-copy">
+                {s.title}
+                <small>{s.label.toLowerCase()}</small>
+              </span>
+              <Icon name="diagonal" size={18} />
+            </a>
+          ))}
+          <a class="mega-all" href="/servicios/">
+            Explorar todas las soluciones <Icon />
+          </a>
+        </div>
+      </details>
+      <details class="nav-dropdown">
+        <summary>
+          Conócenos <Icon name="chevron" size={14} />
+        </summary>
+        <div class="simple-menu">
+          <a href="/nosotros/">Nuestra manera de hacer</a>
+          <a href="/#bodega">Dentro de una operación · 3D</a>
+          <a href="/#industrias">Industrias que movemos</a>
+          <a href="/recursos/">Guías de comercio exterior</a>
+          <a href="/#preguntas">Preguntas frecuentes</a>
+        </div>
+      </details>
+      <a href="/cobertura/">Cobertura</a>
+      <a href="/#contacto">Hablemos</a>
+    </nav>
+    <div class="nav-end">
+      <a class="button button-small nav-desktop-cta" href="/#cotizador">
+        Cotiza tu operación <Icon name="diagonal" size={17} />
+      </a>
+      <button
+        class="mobile-toggle"
+        type="button"
+        aria-label="Abrir menú"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <Icon name="menu" class="mobile-toggle__open" />
+        <Icon name="close" class="mobile-toggle__close" />
+      </button>
+    </div>
+  </div>
+  <nav id="mobile-menu" class="mobile-menu" aria-label="Navegación móvil y tablet" hidden>
+    <a class="button mobile-menu__quote" href="/#cotizador">
+      Cotiza tu operación <Icon name="diagonal" size={20} />
+    </a>
+    <a href="/servicios/">
+      Soluciones <Icon />
+    </a>
+    <a href="/nosotros/">
+      Nosotros <Icon />
+    </a>
+    <a href="/cobertura/">
+      Cobertura <Icon />
+    </a>
+    <a href="/recursos/">
+      Guías y recursos <Icon />
+    </a>
+    <a href="/#bodega">
+      El recorrido <Icon />
+    </a>
+    <a href="/#contacto">
+      Hablemos <Icon />
+    </a>
+    <span>CIUDAD DE MÉXICO · CONEXIÓN GLOBAL</span>
+  </nav>
+</header>

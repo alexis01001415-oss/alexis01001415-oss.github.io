@@ -1,0 +1,46 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import InnerHero from '../../components/InnerHero.astro';
+import Icon from '../../components/Icon.astro';
+import { articles } from '../../data/articles';
+export function getStaticPaths() {
+  return articles.map((article) => ({ params: { slug: article.slug }, props: { article } }));
+}
+const { article } = Astro.props;
+---
+
+<Layout title={`${article.title} | DUANOR`} description={article.description}>
+  <InnerHero
+    title={article.title.toUpperCase()}
+    eyebrow={article.category}
+    breadcrumb="Guía de comercio exterior"
+    description={article.description}
+  />
+  <article class="inner-content">
+    {article.sections.map((s) => (
+      <section>
+        <h2>{s.title}</h2>
+        <p>{s.text}</p>
+      </section>
+    ))}
+    <p class="notice">
+      Contenido introductorio del prototipo. No sustituye una revisión aduanera de tu operación.
+      Consulta requisitos vigentes y el caso concreto antes de embarcar.
+    </p>
+    <h2>Para seguir leyendo</h2>
+    <ul>
+      {article.sources.map((s) => (
+        <li>
+          <a href={s.url} target="_blank" rel="noopener noreferrer">
+            {s.name} <Icon name="diagonal" size={16} />
+          </a>
+        </li>
+      ))}
+    </ul>
+    <p>
+      <a href="/#cotizador">
+        Prepara tu ficha de operación <Icon name="arrow" size={16} />
+      </a>
+    </p>
+  </article>
+</Layout>

@@ -1,0 +1,186 @@
+---
+import Icon from './Icon.astro';
+import DocumentFlow from './DocumentFlow.astro';
+import '../styles/decision-sections.css';
+
+const modes = [
+  {
+    number: '01',
+    name: 'Marítimo',
+    icon: 'ship',
+    idea: 'Pensar en escala.',
+    priority: 'Volumen y planeación',
+    description:
+      'Una alternativa para evaluar cuando el volumen de carga permite planear el embarque con anticipación.',
+    questions: [
+      '¿Contenedor completo o carga consolidada?',
+      '¿Cuánto espacio ocupa el embalaje?',
+      '¿Qué puerto conecta mejor con el destino?',
+    ],
+    route: 'ORIGEN → PUERTO → DESTINO',
+  },
+  {
+    number: '02',
+    name: 'Aéreo',
+    icon: 'plane',
+    idea: 'Pensar en prioridad.',
+    priority: 'Urgencia y características',
+    description:
+      'Una alternativa para evaluar cuando la fecha requerida y la naturaleza del producto tienen un peso decisivo.',
+    questions: [
+      '¿Cuál es la fecha requerida de entrega?',
+      '¿Qué peso y dimensiones tiene cada bulto?',
+      '¿Existen restricciones de manejo o transporte?',
+    ],
+    route: 'ORIGEN → AEROPUERTO → DESTINO',
+  },
+  {
+    number: '03',
+    name: 'Terrestre',
+    icon: 'truck',
+    idea: 'Pensar en continuidad.',
+    priority: 'Conexión y distribución',
+    description:
+      'Una alternativa para evaluar en cruces fronterizos y en los tramos que conectan la aduana con tu almacén.',
+    questions: [
+      '¿Qué puntos deben quedar conectados?',
+      '¿La entrega requiere una cita o maniobras?',
+      '¿Qué tipo de unidad necesita la mercancía?',
+    ],
+    route: 'ORIGEN → FRONTERA / ADUANA → DESTINO',
+  },
+];
+const documents = [
+  {
+    number: '01',
+    title: 'Entender el producto.',
+    description:
+      'Descripción, composición, uso, marca y modelo cuando corresponda. La ficha técnica permite hacer preguntas más precisas.',
+    detail: 'FICHA TÉCNICA / FOTOGRAFÍAS / USO',
+  },
+  {
+    number: '02',
+    title: 'Dar contexto comercial.',
+    description:
+      'Identificar proveedor, comprador, valor y condiciones acordadas. Contrastar los datos de factura y empaque evita trabajar con versiones distintas.',
+    detail: 'FACTURA / LISTA DE EMPAQUE / CONDICIONES',
+  },
+  {
+    number: '03',
+    title: 'Conectar la ruta.',
+    description:
+      'Reunir origen, destino y documento de transporte. Confirmar quién entrega cada dato y qué información sigue pendiente.',
+    detail: 'ORIGEN / TRANSPORTE / DESTINO',
+  },
+  {
+    number: '04',
+    title: 'Revisar antes de avanzar.',
+    description:
+      'Validar la clasificación y los requisitos aplicables con el especialista responsable. Integrar los documentos que correspondan a esa mercancía y operación.',
+    detail: 'CLASIFICACIÓN / REQUISITOS / EXPEDIENTE',
+  },
+];
+---
+
+<section class="route-decisions" id="criterios-de-ruta" aria-labelledby="criterios-de-ruta-title">
+  <header class="decision-heading">
+    <p class="decision-eyebrow">UNA DECISIÓN CON CONTEXTO</p>
+    <div class="decision-heading__row">
+      <h2 id="criterios-de-ruta-title">
+        La mejor ruta
+        <br />
+        empieza con
+        <br />
+        <span>la pregunta correcta.</span>
+      </h2>
+      <p>
+        Antes de elegir un medio de transporte, ponemos sobre la mesa lo que importa: tu mercancía,
+        tu destino y tus prioridades.
+      </p>
+    </div>
+  </header>
+  <div class="route-comparison">
+    {modes.map((mode) => (
+      <article class="route-mode" aria-labelledby={`route-mode-${mode.number}`}>
+        <div class="route-mode__top">
+          <span>{mode.number} / MODALIDAD</span>
+          <Icon name={mode.icon} size={31} />
+        </div>
+        <h3 id={`route-mode-${mode.number}`}>{mode.name}</h3>
+        <p class="route-mode__idea">{mode.idea}</p>
+        <div class="route-mode__line" aria-hidden="true">
+          <i></i>
+          <span></span>
+          <i></i>
+        </div>
+        <p class="route-mode__priority">{mode.priority}</p>
+        <p class="route-mode__description">{mode.description}</p>
+        <ul>
+          {mode.questions.map((question) => (
+            <li>
+              <span aria-hidden="true">↗</span>
+              {question}
+            </li>
+          ))}
+        </ul>
+        <span class="route-mode__route">{mode.route}</span>
+      </article>
+    ))}
+  </div>
+  <div class="route-decisions__closing">
+    <p>
+      Una operación puede combinar varios medios. La propuesta final depende de la ruta,
+      disponibilidad y revisión de tu carga.
+    </p>
+    <a href="/#cotizador">
+      Explorar mi operación <Icon name="diagonal" size={20} />
+    </a>
+  </div>
+</section>
+
+<section class="document-route" id="ruta-documental" aria-labelledby="ruta-documental-title">
+  <div class="document-route__intro">
+    <p class="decision-eyebrow">LA CARGA TAMBIÉN VIAJA EN DOCUMENTOS</p>
+    <h2 id="ruta-documental-title">
+      Cada dato
+      <br />
+      abre el
+      <br />
+      <span>siguiente paso.</span>
+    </h2>
+    <p>
+      Un expediente claro empieza con información que cuenta la misma historia. Así se prepara una
+      conversación útil sobre tu operación.
+    </p>
+    <a class="document-route__resource" href="/recursos/">
+      Consultar las guías <Icon name="diagonal" size={21} />
+    </a>
+    <DocumentFlow />
+  </div>
+  <div class="document-route__body">
+    <ol class="document-route__steps">
+      {documents.map((document) => (
+        <li>
+          <span class="document-route__number">{document.number}</span>
+          <div>
+            <h3>{document.title}</h3>
+            <p>{document.description}</p>
+            <span class="document-route__detail">{document.detail}</span>
+          </div>
+        </li>
+      ))}
+    </ol>
+    <p class="document-route__source">
+      Punto de partida orientativo. Los documentos aplicables cambian según la operación. Consulta
+      la{' '}
+      <a
+        href="https://www.snice.gob.mx/cs/avi/snice/comercio.aprende.importar.logistica.html"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        guía de logística de importación de SNICE <Icon name="diagonal" size={14} />
+      </a>
+      .
+    </p>
+  </div>
+</section>

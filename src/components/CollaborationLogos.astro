@@ -1,0 +1,50 @@
+---
+import '../styles/collaboration-logos.css';
+
+interface Props {
+  id?: string;
+}
+const { id = 'colaboraciones' } = Astro.props;
+const logos = [
+  { id: 214, width: 100, height: 51, size: 'stacked', name: 'formas geométricas' },
+  { id: 248, width: 78, height: 32, size: 'motion', name: 'líneas en movimiento' },
+  { id: 220, width: 163, height: 42, size: 'wordmark', name: 'logotipo enmarcado' },
+  { id: 267, width: 80, height: 80, size: 'symbol', name: 'hexágono lineal' },
+  { id: 251, width: 166, height: 49, size: 'wordmark', name: 'símbolo entrelazado' },
+  { id: 299, width: 40, height: 40, size: 'symbol', name: 'estrella circular' },
+];
+---
+
+<section class="collaboration-logos" id={id} aria-labelledby={`${id}-title`}>
+  <div class="collaboration-logos__inner">
+    <div class="collaboration-logos__heading">
+      <div>
+        <p class="collaboration-logos__eyebrow">COLABORACIÓN, DE ORIGEN A DESTINO</p>
+        <h2 id={`${id}-title`}>Cada ruta se construye en equipo.</h2>
+      </div>
+      <p class="collaboration-logos__note" id={`${id}-note`}>
+        Marcas de muestra. <br />
+        Colaboraciones ilustrativas.
+      </p>
+    </div>
+
+    <ul
+      class="collaboration-logos__list"
+      aria-label="Seis marcas ficticias de muestra"
+      aria-describedby={`${id}-note`}
+    >
+      {logos.map((logo) => (
+        <li class={`collaboration-logos__item collaboration-logos__item--${logo.size}`}>
+          <img
+            src={`/logos/logoipsum-${logo.id}.svg`}
+            alt={`Marca de muestra Logoipsum: ${logo.name}`}
+            width={logo.width}
+            height={logo.height}
+            loading="lazy"
+            decoding="async"
+          />
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

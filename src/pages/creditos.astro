@@ -1,0 +1,224 @@
+---
+import Layout from '../layouts/Layout.astro';
+import InnerHero from '../components/InnerHero.astro';
+import Icon from '../components/Icon.astro';
+const models = [
+  {
+    name: 'Container ship full',
+    author: 'Sketlux',
+    library: 'OpenGameArt',
+    href: 'https://opengameart.org/content/container-ship-full',
+    use: 'Modelo fuente del buque portacontenedores, adaptado para esta experiencia.',
+  },
+  {
+    name: 'Steel Frame Shelves 02',
+    author: 'James Ray Cock',
+    library: 'Poly Haven',
+    href: 'https://polyhaven.com/a/steel_frame_shelves_02',
+    use: 'Estanterías utilizadas en la composición del interior de la bodega.',
+  },
+  {
+    name: 'Cardboard Box 01',
+    author: 'Rahul Chaudhary',
+    library: 'Poly Haven',
+    href: 'https://polyhaven.com/a/cardboard_box_01',
+    use: 'Modelo de caja incorporado a las escenas de mercancía y almacenamiento.',
+  },
+];
+---
+
+<Layout
+  title="Créditos y recursos de la experiencia | DUANOR"
+  description="Conoce la procedencia de los modelos 3D CC0, las tipografías y las imágenes conceptuales originales que dan forma a la experiencia DUANOR."
+>
+  <InnerHero
+    title="CADA DETALLE TIENE UN ORIGEN."
+    eyebrow="CRÉDITOS / EXPERIENCIA DIGITAL"
+    breadcrumb="Créditos"
+    description="Reconocemos a quienes crean los recursos que hacen posible explorar nuevas ideas."
+  />
+  <article class="inner-content">
+    <h2>Modelos 3D</h2>
+    <p>
+      La experiencia combina modelos de bibliotecas abiertas con una composición, materiales y
+      recorrido preparados para DUANOR en Blender. Estos son los recursos originales de terceros
+      utilizados en las escenas.
+    </p>
+    <div class="model-credits">
+      {models.map((model, index) => (
+        <section class="model-credit" aria-labelledby={`model-credit-${index}`}>
+          <span class="credit-index" aria-hidden="true">
+            0{index + 1}
+          </span>
+          <div>
+            <p class="credit-library">{model.library} · CC0</p>
+            <h3 id={`model-credit-${index}`}>{model.name}</h3>
+            <p>
+              Por {model.author}. {model.use}
+            </p>
+            <a href={model.href} target="_blank" rel="noopener noreferrer">
+              Consultar el recurso original <Icon name="diagonal" size={16} />
+            </a>
+          </div>
+        </section>
+      ))}
+    </div>
+    <p>
+      Los modelos fuente están publicados bajo{' '}
+      <a
+        href="https://creativecommons.org/publicdomain/zero/1.0/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        CC0 1.0
+      </a>
+      , que permite su uso comercial y adaptación sin exigir atribución. Conservamos estos créditos
+      por transparencia. Su inclusión no implica colaboración ni respaldo de los autores a DUANOR.
+    </p>
+    <p>
+      Consulta también las{' '}
+      <a href="https://polyhaven.com/license" target="_blank" rel="noopener noreferrer">
+        condiciones de los recursos de Poly Haven <Icon name="diagonal" size={16} />
+      </a>
+      .
+    </p>
+    <h2>Patio exterior y transporte</h2>
+    <p>
+      El tractocamión y el semirremolque del capítulo Destino son modelos originales creados en
+      Blender para este prototipo. La carrocería, los ejes, las ruedas, los herrajes y la
+      señalización forman parte de la escena editable entregada con el proyecto.
+    </p>
+    <h2>Cartografía de Ciudad de México</h2>
+    <p>
+      Cartografía adaptada de INEGI, Marco Geoestadístico 2020, distribuida por
+      <a
+        href="https://datos.cdmx.gob.mx/dataset/alcaldias"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Datos Abiertos de la Ciudad de México
+      </a>
+      , bajo licencia{' '}
+      <a
+        href="https://creativecommons.org/licenses/by/4.0/deed.es"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        CC BY 4.0
+      </a>
+      . Se adaptaron la proyección, la simplificación y los colores. Las coordenadas de referencia
+      proceden del inventario de SEMARNAT 2024.
+    </p>
+    <p>
+      El mapa agrupa las aduanas y secciones oficiales de la ciudad en los complejos Pantaco y AICM.
+      Las fichas enlazan a ANAM, SAT y al Diario Oficial para consultar su identificación y
+      ubicación. Los marcadores representan conjuntos operativos, no accesos individuales ni
+      oficinas de DUANOR.
+    </p>
+    <h2>Imágenes conceptuales</h2>
+    <p>
+      Las imágenes de puerto, inspección de mercancías y manufactura se crearon con inteligencia
+      artificial para este prototipo. Son escenas ilustrativas originales y no documentan
+      instalaciones, operaciones ni clientes de una empresa real.
+    </p>
+    <h2>Logotipos de muestra</h2>
+    <p>
+      Los seis logotipos de muestra pertenecen a{' '}
+      <a href="https://logoipsum.com/" target="_blank" rel="noopener noreferrer">
+        Logoipsum
+      </a>
+      , diseñados por Rizal para SignalSupply. Se adaptaron sus colores y se optimizaron los SVG
+      para este prototipo conforme a la
+      <a href="https://logoipsum.com/license" target="_blank" rel="noopener noreferrer">
+        Logoipsum Fair Use License
+      </a>
+      . Son marcas ficticias ilustrativas; no representan clientes ni afiliaciones reales de DUANOR.
+    </p>
+    <h2>Iconografía</h2>
+    <p>
+      Los iconos de la interfaz pertenecen a{' '}
+      <a href="https://lucide.dev/" target="_blank" rel="noopener noreferrer">
+        Lucide
+      </a>
+      . Se distribuyen bajo licencia ISC; los recursos derivados de Feather conservan su licencia
+      MIT. Ambas permiten uso comercial. Consulta los{' '}
+      <a href="/licenses/Lucide.txt">avisos de licencia incluidos</a>.
+    </p>
+    <h2>Tipografías</h2>
+    <p>
+      Space Grotesk — The Space Grotesk Project Authors — y DM Sans — The DM Sans Project Authors —
+      se distribuyen bajo SIL Open Font License 1.1 y se sirven localmente en este sitio y en el
+      PDF.
+    </p>
+    <p>
+      <a
+        href="https://github.com/floriankarsten/space-grotesk"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Proyecto Space Grotesk <Icon name="diagonal" size={16} />
+      </a>
+      <span aria-hidden="true"> · </span>
+      <a href="https://github.com/googlefonts/dm-fonts" target="_blank" rel="noopener noreferrer">
+        Proyecto DM Sans <Icon name="diagonal" size={16} />
+      </a>
+      <span aria-hidden="true"> · </span>
+      <a
+        href="https://openfontlicense.org/open-font-license-official-text/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        SIL Open Font License <Icon name="diagonal" size={16} />
+      </a>
+    </p>
+    <h2>Una marca imaginada para explorar posibilidades</h2>
+    <p>
+      DUANOR es una marca ficticia. Su identidad visual, la composición de las escenas y la
+      experiencia web forman parte de una propuesta de diseño. No se atribuyen patentes,
+      certificaciones, instalaciones ni resultados comerciales a una agencia aduanal real.
+    </p>
+  </article>
+</Layout>
+
+<style>
+  .model-credits {
+    margin-block: 2.5rem;
+  }
+  .model-credit {
+    display: grid;
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+    gap: 1.25rem;
+    padding-block: 1.75rem;
+    border-top: 1px solid rgba(119, 141, 169, 0.25);
+  }
+  .model-credit:last-child {
+    border-bottom: 1px solid rgba(119, 141, 169, 0.25);
+  }
+  .credit-index {
+    padding-top: 0.25rem;
+    font-size: 0.75rem;
+    opacity: 0.55;
+  }
+  .model-credit .credit-library {
+    margin: 0 0 0.5rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .model-credit h3 {
+    margin: 0 0 0.65rem;
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
+  }
+  .model-credit p {
+    margin-bottom: 1rem;
+  }
+  .model-credit a {
+    font-size: 0.8rem;
+  }
+  @media (max-width: 480px) {
+    .model-credit {
+      grid-template-columns: 1.5rem minmax(0, 1fr);
+      gap: 0.75rem;
+    }
+  }
+</style>

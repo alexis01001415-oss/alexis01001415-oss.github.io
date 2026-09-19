@@ -1,0 +1,62 @@
+/* Elements are visible by default. Only initialized, off-screen targets opt in. */
+.dnr-reveal {
+  --dnr-reveal-rise: 18px;
+  --dnr-reveal-duration: 640ms;
+}
+.dnr-reveal[data-dnr-reveal-kind='heading'] {
+  --dnr-reveal-rise: 24px;
+  --dnr-reveal-duration: 760ms;
+}
+.dnr-reveal[data-dnr-reveal-kind='card'] {
+  --dnr-reveal-rise: 20px;
+  --dnr-reveal-duration: 700ms;
+}
+.dnr-reveal[data-dnr-reveal-kind='media'] {
+  --dnr-reveal-rise: 14px;
+  --dnr-reveal-duration: 840ms;
+}
+.dnr-reveal[data-dnr-reveal-state='pending'] {
+  opacity: 0;
+  translate: 0 var(--dnr-reveal-rise);
+}
+.dnr-reveal[data-dnr-reveal-state='entering'] {
+  animation: dnr-reveal-enter var(--dnr-reveal-duration) cubic-bezier(0.22, 1, 0.36, 1)
+    var(--dnr-reveal-delay, 0ms) both;
+  will-change: opacity, translate;
+}
+/* A focused link/card is immediately readable, even before focusin is handled. */
+.dnr-reveal:focus-within {
+  opacity: var(--dnr-reveal-opacity, 1) !important;
+  translate: none !important;
+  animation: none !important;
+}
+@keyframes dnr-reveal-enter {
+  from {
+    opacity: 0;
+    translate: 0 var(--dnr-reveal-rise);
+  }
+  to {
+    opacity: var(--dnr-reveal-opacity, 1);
+    translate: 0 0;
+  }
+}
+@media (max-width: 600px) {
+  .dnr-reveal {
+    --dnr-reveal-rise: 14px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dnr-reveal {
+    opacity: var(--dnr-reveal-opacity, 1) !important;
+    translate: none !important;
+    animation: none !important;
+    will-change: auto;
+  }
+}
+@media print {
+  .dnr-reveal {
+    opacity: var(--dnr-reveal-opacity, 1) !important;
+    translate: none !important;
+    animation: none !important;
+  }
+}

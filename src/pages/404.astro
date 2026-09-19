@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+import InnerHero from '../components/InnerHero.astro';
+import Icon from '../components/Icon.astro';
+---
+
+<Layout
+  title="Esta ruta todavía no existe | DUANOR"
+  description="No encontramos la página solicitada. Regresa a DUANOR para explorar soluciones aduanales, recursos y el cotizador de operaciones."
+  noindex
+>
+  <InnerHero
+    title="ESTA RUTA TODAVÍA NO EXISTE."
+    eyebrow="404 / DESTINO NO ENCONTRADO"
+    breadcrumb="Página no encontrada"
+    description="Puede que el enlace haya cambiado. Volvamos al punto de partida para encontrar tu siguiente destino."
+  >
+    <a href="/" class="button">
+      Volver al inicio <Icon name="arrow" />
+    </a>
+  </InnerHero>
+</Layout>

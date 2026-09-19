@@ -1,0 +1,73 @@
+---
+import Layout from '../layouts/Layout.astro';
+import InnerHero from '../components/InnerHero.astro';
+import Icon from '../components/Icon.astro';
+---
+
+<Layout
+  title="Aviso de privacidad del prototipo | DUANOR"
+  description="Conoce qué datos solicitan el cotizador y el formulario de contacto, cómo funciona el PDF local y qué se transmite mediante Web3Forms."
+>
+  <InnerHero
+    title="TU INFORMACIÓN MERECE CLARIDAD."
+    eyebrow="PRIVACIDAD / PROTOTIPO"
+    breadcrumb="Aviso de privacidad"
+  />
+  <article class="inner-content">
+    <p class="notice">
+      Este sitio es un prototipo de una marca ficticia. Mientras no se identifique a la empresa
+      responsable y se publique su aviso definitivo, utiliza datos de prueba. La plantilla debe
+      completarse y revisarse antes de captar solicitudes reales.
+    </p>
+    <h2>Datos que solicita el cotizador</h2>
+    <p>
+      Nombre, empresa, correo electrónico, teléfono opcional y datos de la operación: mercancía,
+      valor comercial, origen, destino, modalidad y condiciones de carga. No solicita contraseñas,
+      certificados de e.firma, archivos fiscales ni datos bancarios.
+    </p>
+    <h2>Para qué se utilizan</h2>
+    <p>
+      Para preparar una ficha de operación y, al elegir “Enviar solicitud”, transmitir esa
+      información para su revisión comercial. La descarga de PDF se genera en tu navegador y no
+      envía por sí misma los datos al servicio de correo.
+    </p>
+    <h2>Formulario de contacto</h2>
+    <p>
+      Solicita nombre, correo electrónico, empresa opcional, tema de interés y un mensaje sobre tu
+      proyecto. Al aceptar el aviso y pulsar “Enviar mensaje”, estos datos se transmiten a Web3Forms
+      para atender la consulta. Completar los campos no inicia el envío. El mensaje no genera una
+      cotización ni un PDF automáticamente.
+    </p>
+    <h2>Envío de solicitudes</h2>
+    <p>
+      Cuando la integración esté habilitada, los datos se envían a Web3Forms para su procesamiento y
+      entrega al correo asociado a la clave del formulario. El uso del servicio y sus
+      subprocesadores debe evaluarse al configurar el sitio real.
+    </p>
+    <p>
+      <a href="https://web3forms.com/privacy" target="_blank" rel="noopener noreferrer">
+        Consulta la política de privacidad de Web3Forms <Icon name="diagonal" size={16} />
+      </a>
+    </p>
+    <h2>Almacenamiento en este prototipo</h2>
+    <p>
+      Los formularios conservan los datos en memoria durante la visita. No usan una base de datos
+      propia ni almacenamiento persistente del navegador para cotizaciones o mensajes. Al enviar la
+      solicitud, el proveedor de formularios y el buzón receptor aplican sus respectivas condiciones
+      de conservación. La ficha descargada permanece en el dispositivo del usuario.
+    </p>
+    <h2>Identidad del responsable y ejercicio de derechos</h2>
+    <p>
+      Pendiente de personalización: razón social, domicilio, correo de privacidad, mecanismo para
+      ejercer derechos de acceso, rectificación, cancelación y oposición, plazos de conservación,
+      transferencias y medios para comunicar cambios. El prototipo no representa a una agencia
+      aduanal real.
+    </p>
+    <h2>Cookies y herramientas de terceros</h2>
+    <p>
+      Esta versión no incorpora analítica publicitaria ni cookies de seguimiento propias. Las
+      tipografías y recursos visuales se sirven desde el sitio. La conexión con Web3Forms se realiza
+      únicamente al enviar la solicitud.
+    </p>
+  </article>
+</Layout>

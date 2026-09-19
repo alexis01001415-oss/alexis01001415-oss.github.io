@@ -1,0 +1,224 @@
+---
+import Icon from './Icon.astro';
+import '../styles/contact.css';
+
+interface Props {
+  /** Use a different id for every form rendered on the same page. */
+  id?: string;
+  compact?: boolean;
+  title?: string;
+}
+const {
+  id = 'contacto-formulario',
+  compact = false,
+  title = 'El siguiente paso empieza contigo.',
+} = Astro.props;
+const accessKey = (import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY || '').trim();
+const interests = [
+  'Mi primera importación',
+  'Despacho de importación',
+  'Despacho de exportación',
+  'Logística y coordinación de carga',
+  'Consultoría aduanera',
+  'Quiero conocer las opciones',
+];
+---
+
+<section
+  class:list={['contact-block', { 'contact-block--compact': compact }]}
+  id={id}
+  aria-labelledby={`${id}-title`}
+>
+  <div class="contact-block__layout">
+    <div class="contact-block__intro">
+      <span class="contact-block__eyebrow">HABLEMOS DE TU OPERACIÓN</span>
+      <h2 id={`${id}-title`}>{title}</h2>
+      <p>
+        No necesitas tener todas las respuestas. Cuéntanos qué quieres mover y en qué etapa te
+        encuentras.
+      </p>
+      <a class="contact-block__alternative" href="/#cotizador">
+        <span>
+          ¿Ya tienes los datos de tu carga?
+          <br />
+          <strong>Prepara tu estimación en el cotizador.</strong>
+        </span>
+        <Icon name="diagonal" size={22} />
+      </a>
+      <div class="contact-block__signature" aria-hidden="true">
+        <span>CDMX</span>
+        <span>↗</span>
+        <span>EL MUNDO</span>
+      </div>
+    </div>
+
+    <form
+      class="contact-form"
+      data-contact-form
+      data-web3-key={accessKey}
+      novalidate
+      aria-labelledby={`${id}-title`}
+    >
+      <p class="contact-form__instruction">Los campos marcados con * son necesarios.</p>
+      <div class="contact-form__fields">
+        <div class="contact-field">
+          <label for={`${id}-name`}>
+            Tu nombre <span aria-hidden="true">*</span>
+          </label>
+          <input
+            id={`${id}-name`}
+            name="name"
+            autocomplete="name"
+            required
+            minlength="2"
+            maxlength="90"
+            placeholder="¿Cómo te llamas?"
+            aria-describedby={`${id}-name-error`}
+          />
+          <span class="contact-field__error" id={`${id}-name-error`} data-error-for="name"></span>
+        </div>
+        <div class="contact-field">
+          <label for={`${id}-email`}>
+            Correo electrónico <span aria-hidden="true">*</span>
+          </label>
+          <input
+            id={`${id}-email`}
+            name="email"
+            type="email"
+            autocomplete="email"
+            inputmode="email"
+            required
+            maxlength="254"
+            placeholder="nombre@tuempresa.com"
+            aria-describedby={`${id}-email-error`}
+          />
+          <span class="contact-field__error" id={`${id}-email-error`} data-error-for="email"></span>
+        </div>
+        <div class="contact-field">
+          <label for={`${id}-company`}>
+            Empresa <span class="contact-field__optional">(opcional)</span>
+          </label>
+          <input
+            id={`${id}-company`}
+            name="company"
+            autocomplete="organization"
+            maxlength="120"
+            placeholder="Nombre de tu empresa"
+            aria-describedby={`${id}-company-error`}
+          />
+          <span
+            class="contact-field__error"
+            id={`${id}-company-error`}
+            data-error-for="company"
+          ></span>
+        </div>
+        <div class="contact-field">
+          <label for={`${id}-interest`}>
+            ¿Qué necesitas? <span aria-hidden="true">*</span>
+          </label>
+          <select
+            id={`${id}-interest`}
+            name="interest"
+            required
+            aria-describedby={`${id}-interest-error`}
+          >
+            <option value="" disabled selected>
+              Selecciona una opción
+            </option>
+            {interests.map((interest) => (
+              <option value={interest}>{interest}</option>
+            ))}
+          </select>
+          <span
+            class="contact-field__error"
+            id={`${id}-interest-error`}
+            data-error-for="interest"
+          ></span>
+        </div>
+        <div class="contact-field contact-field--full">
+          <label for={`${id}-message`}>
+            Cuéntanos sobre tu proyecto <span aria-hidden="true">*</span>
+          </label>
+          <textarea
+            id={`${id}-message`}
+            name="message"
+            rows="3"
+            required
+            minlength="15"
+            maxlength="3000"
+            placeholder="Tipo de mercancía, origen, destino o la duda que quieres resolver…"
+            aria-describedby={`${id}-message-hint ${id}-message-error`}
+          ></textarea>
+          <span class="contact-field__hint" id={`${id}-message-hint`}>
+            Comparte el contexto general. No incluyas documentos fiscales ni información bancaria.
+          </span>
+          <span
+            class="contact-field__error"
+            id={`${id}-message-error`}
+            data-error-for="message"
+          ></span>
+        </div>
+      </div>
+      <div class="contact-form__honeypot" hidden aria-hidden="true">
+        <label for={`${id}-botcheck`}>Deja este campo vacío</label>
+        <input
+          type="checkbox"
+          name="botcheck"
+          id={`${id}-botcheck`}
+          tabindex="-1"
+          autocomplete="off"
+        />
+      </div>
+      <div class="contact-consent">
+        <input
+          id={`${id}-consent`}
+          name="consent"
+          type="checkbox"
+          required
+          aria-describedby={`${id}-consent-error`}
+        />
+        <label for={`${id}-consent`}>
+          He leído el <a href="/privacidad/">aviso de privacidad</a> y acepto el tratamiento de mis
+          datos para atender esta solicitud. <span aria-hidden="true">*</span>
+        </label>
+      </div>
+      <span class="contact-field__error" id={`${id}-consent-error`} data-error-for="consent"></span>
+      <div class="contact-form__actions">
+        <button
+          class="button contact-submit"
+          type="submit"
+          disabled
+          aria-describedby={`${id}-status`}
+        >
+          <span data-contact-button-label>Enviar mensaje</span>
+          <Icon name="diagonal" size={22} />
+        </button>
+        <button class="contact-reset" type="button" data-contact-reset hidden>
+          Escribir otro mensaje <Icon name="arrow" size={18} />
+        </button>
+      </div>
+      <p
+        class="contact-form__status"
+        id={`${id}-status`}
+        data-contact-status
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+      >
+        {accessKey
+          ? 'Preparando el formulario…'
+          : 'El envío de mensajes aún no está habilitado en este prototipo. Puedes explorar el cotizador y descargar tu PDF.'}
+      </p>
+      <noscript>
+        <p class="contact-form__status">
+          Activa JavaScript para validar y enviar este formulario. Tus datos no se envían al
+          completar los campos.
+        </p>
+      </noscript>
+    </form>
+  </div>
+</section>
+
+<script>
+  import '../scripts/contact';
+</script>

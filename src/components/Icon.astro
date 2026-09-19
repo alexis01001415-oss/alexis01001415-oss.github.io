@@ -1,0 +1,73 @@
+---
+import {
+  ArrowRight,
+  ArrowLeft,
+  ArrowUpRight,
+  ArrowDown,
+  ChevronDown,
+  Ship,
+  Plane,
+  Truck,
+  PackageCheck,
+  FileCheck,
+  ShieldCheck,
+  Check,
+  Download,
+  Globe,
+  MapPin,
+  Plus,
+  X,
+  Menu,
+  Pause,
+  Play,
+  ReceiptText,
+} from '@lucide/astro';
+interface Props {
+  name?: string;
+  size?: number;
+  class?: string;
+}
+const { name = 'arrow', size = 24, class: className = '' } = Astro.props;
+const icons = {
+  arrow: ArrowRight,
+  back: ArrowLeft,
+  diagonal: ArrowUpRight,
+  down: ArrowDown,
+  chevron: ChevronDown,
+  ship: Ship,
+  plane: Plane,
+  truck: Truck,
+  box: PackageCheck,
+  document: FileCheck,
+  customs: ShieldCheck,
+  check: Check,
+  download: Download,
+  globe: Globe,
+  pin: MapPin,
+  plus: Plus,
+  close: X,
+  menu: Menu,
+  pause: Pause,
+  play: Play,
+  receipt: ReceiptText,
+};
+const Glyph = icons[name as keyof typeof icons] || ArrowRight;
+const direction =
+  name === 'diagonal'
+    ? 'icon-arrow-diagonal'
+    : name === 'arrow'
+      ? 'icon-arrow-horizontal'
+      : name === 'back'
+        ? 'icon-arrow-back'
+        : name === 'down'
+          ? 'icon-arrow-down'
+          : '';
+---
+
+<Glyph
+  size={size}
+  stroke-width={1.65}
+  class={`duanor-icon ${direction} ${className}`}
+  aria-hidden="true"
+  focusable="false"
+/>
